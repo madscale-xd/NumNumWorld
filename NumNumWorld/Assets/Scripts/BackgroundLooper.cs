@@ -2,30 +2,46 @@ using UnityEngine;
 
 public class BackgroundLooper : MonoBehaviour
 {
-    public float scrollSpeed = 2f;  // Speed at which the background moves
-    public bool loopBackground = true; // Whether to loop the background
-    private float width;            // Width of the background
+    public float scrollSpeed = 2f;
+    public bool loopBackground = true;
 
-    private Vector3 startPosition;  // Initial position of the background
+    private float backgroundWidth;
+    private Transform[] backgrounds;
 
     void Start()
     {
-        // Store the initial position of the background
-        startPosition = transform.position;
+        // Assume two children with identical sprites are attached to this GameObject
+        backgrounds = new Transform[2];
+        backgrounds[0] = transform.GetChild(0);
+        backgrounds[1] = transform.GetChild(1);
 
-        // Get the width of the background from the sprite renderer
-        width = GetComponent<SpriteRenderer>().bounds.size.x;
+        backgroundWidth = backgrounds[0].GetComponent<SpriteRenderer>().bounds.size.x;
     }
 
     void Update()
     {
-        // Move the background by the scroll speed in the X direction
-        transform.position += Vector3.left * scrollSpeed * Time.deltaTime;
+        if (!loopBackground) return;
 
-        // If the background moves past its starting position (or left side), reset it
-        if (loopBackground && transform.position.x <= startPosition.x - width)
+        // Move both backgrounds leftward
+        foreach (Transform bg in backgrounds)
         {
-            transform.position = startPosition;  // Reset position to the start for looping effect
+            bg.position += Vector3.left * scrollSpeed * Time.deltaTime;
         }
+
+        // Check if any background has moved completely off screen
+        if (backgrounds[0].position.x <= -backgroundWidth)
+        {
+            SwapAndReposition();
+        }
+    }
+
+    void SwapAndReposition()
+    {
+        // Move the first background to the right of the second one
+        Transform temp = backgrounds[0];
+        backgrounds[0] = backgrounds[1];
+        backgrounds[1] = temp;
+
+        backgrounds[1].position = backgrounds[0].position + Vector3.right * backgroundWidth;
     }
 }
