@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public class ComputeManager : MonoBehaviour
+public class DEFENDComputeManager : MonoBehaviour
 {
     [Header("Drop Slots")]
     public DigitDropSlot dropSlot1;
@@ -22,12 +22,10 @@ public class ComputeManager : MonoBehaviour
     [Header("Enemy Reference")]
     public EnemyAI currentEnemy;
 
-    [Header("Turn-based Panels")]
+    [Header("Player Reference")]
+    public PlayerMovement player;
 
-    public AuraPanelTrigger auraTrigger;
-
-
-    public void OnComputeButtonPressed()
+    public void OnDefendComputeButtonPressed()
     {
         // Get values
         int v1 = dropSlot1.lockedInValue;
@@ -49,25 +47,29 @@ public class ComputeManager : MonoBehaviour
         result = ApplyOperator(result, o3, v4);
         result = ApplyOperator(result, o4, v5);
 
-        // Show result
-        resultText.text = "Result: " + result.ToString("0.##");
+        resultText.text = "Defense Result: " + result.ToString("0.##");
 
         if (currentEnemy != null)
         {
-            int enemyValue = currentEnemy.GetEnemyValue();
-            if (result >= enemyValue)
+            int expected = currentEnemy.attackValue;
+
+            if (Mathf.Approximately(result, expected))
             {
-                resultText.text += "\nEnemy Defeated!";
-                currentEnemy.DestroyEnemy();
-                currentEnemy = null; // Clear reference
+                resultText.text += "\nPerfect block!";
+                Debug.Log("Player successfully blocked the attack.");
             }
             else
             {
-                // If the result is less than the enemy's value, subtract from the enemy's health
-                currentEnemy.TakeDamage((int)result);
-                resultText.text += "\nEnemy takes damage!";
-                currentEnemy.AttackTurn();
+                resultText.text += "\nFailed block! You take 1 damage.";
+                Debug.Log($"Player takes damage! Enemy attack was {expected}, you computed {result}");
+
+                if (player != null)
+                {
+                    player.DamagePlayer();
+                }
             }
+
+            currentEnemy.DefendTurn();
         }
         else
         {

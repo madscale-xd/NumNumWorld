@@ -3,20 +3,26 @@ using TMPro;
 
 public class EnemyAI : MonoBehaviour
 {
+    public int attackValue; 
     [Header("Enemy HP Display")]
     public TextMeshPro enemyValueText;
+
+    [Header("Enemy Attack Display")]
+    public TextMeshPro enemyAttackText; // <- Add this in the Inspector
 
     [Header("Target To Destroy")]
     public GameObject targetToDestroy;
 
     [Header("References")]
     public AuraPanelTrigger auraTrigger;
+
+    public PanelTrigger panelTrigger;
     public PlayerMovement playerMovement;
 
     [Header("Resettable Components")]
-    public RandomDigitDrawer[] digitAssigners = new RandomDigitDrawer[10];
-    public DigitDropSlot[] dropSlots = new DigitDropSlot[5];
-    public OperatorCycleButton[] operatorButtons = new OperatorCycleButton[4];
+    public RandomDigitDrawer[] digitAssigners = new RandomDigitDrawer[20];
+    public DigitDropSlot[] dropSlots = new DigitDropSlot[10];
+    public OperatorCycleButton[] operatorButtons = new OperatorCycleButton[8];
     public TextMeshProUGUI resultText;
 
     private int enemyValue;
@@ -28,7 +34,7 @@ public class EnemyAI : MonoBehaviour
 
     public void GenerateEnemyValue()
     {
-        enemyValue = Random.Range(20, 51);
+        enemyValue = Random.Range(2000, 5000);
         if (enemyValueText != null)
             enemyValueText.text = enemyValue.ToString();
     }
@@ -84,5 +90,32 @@ public class EnemyAI : MonoBehaviour
 
         if (resultText != null)
             resultText.text = "Digits and operators reset!";
+    }
+
+    public void AttackTurn()
+    {
+        auraTrigger.TogglePanel();
+        panelTrigger.TogglePanel();
+        ResetNumbers();
+        attackValue = Random.Range(8, 256); // You can tweak this range
+        if (enemyAttackText != null)
+        {
+            enemyAttackText.text = $"{attackValue}";
+        }
+
+        // You can later extend this to actually apply damage to the player, etc.
+    }
+
+    public void DefendTurn()
+    {
+        auraTrigger.TogglePanel();
+        panelTrigger.TogglePanel();
+        ResetNumbers();
+        if (enemyAttackText != null)
+        {
+            enemyAttackText.text = $"{attackValue}";
+        }
+
+        // You can later extend this to actually apply damage to the player, etc.
     }
 }
