@@ -9,6 +9,15 @@ public class SceneButtonManager : MonoBehaviour
         Cursor.visible = true;
     }
 
+    void Update()
+    {
+        // Pressing Escape will return to the Main Menu
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            BackToMenu();
+        }
+    }
+
     public void QuitGame()
     {
         Application.Quit();
@@ -16,16 +25,21 @@ public class SceneButtonManager : MonoBehaviour
 
     public void LoadGame()
     {
-        SceneManager.LoadScene("GameScene"); // Replace with your actual gameplay scene name
+        SceneManager.LoadScene("NumNumMain"); // Replace with your actual gameplay scene name
     }
 
     public void LoadRetry()
     {
-        SceneManager.LoadScene("EndMenu");
+        SceneManager.LoadScene("NumNumMain");
     }
 
     public void LoadMenu()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("MainMenu"); // You can change this to any "back" destination
     }
 }
