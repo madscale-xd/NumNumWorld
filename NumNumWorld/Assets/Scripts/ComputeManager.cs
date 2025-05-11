@@ -55,19 +55,17 @@ public class ComputeManager : MonoBehaviour
         if (currentEnemy != null)
         {
             int enemyValue = currentEnemy.GetEnemyValue();
-            if (result >= enemyValue)
-            {
-                resultText.text += "\nEnemy Defeated!";
-                currentEnemy.DestroyEnemy();
-                currentEnemy = null; // Clear reference
-            }
-            else
-            {
-                // If the result is less than the enemy's value, subtract from the enemy's health
-                currentEnemy.TakeDamage((int)result);
-                resultText.text += "\nEnemy takes damage!";
-                currentEnemy.AttackTurn();
-            }
+            if (Mathf.RoundToInt(result) == enemyValue)
+                {
+                    resultText.text += "\nEnemy Defeated!";
+                    currentEnemy.DestroyEnemy();
+                    currentEnemy = null; // Clear reference
+                }
+                else
+                {
+                    resultText.text += $"\nAttack failed! Computed {result}, needed {enemyValue}.";
+                    currentEnemy.AttackTurn();
+                }
         }
         else
         {

@@ -2,11 +2,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DigitDropSlot : MonoBehaviour, IDropHandler
+public class DigitDropSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 {
     public Image slotImage;
-    public Sprite defaultSprite;  // Assign this in the Inspector
+    public Sprite defaultSprite;  // Assign in Inspector
     public int lockedInValue = 0;
+
     private GameObject currentlyAssignedDigit;
 
     public void OnDrop(PointerEventData eventData)
@@ -19,10 +20,10 @@ public class DigitDropSlot : MonoBehaviour, IDropHandler
 
         if (digit != null && droppedImage != null)
         {
-            // If there's already a digit here, reset it before placing the new one
+            // Reset existing digit if slot is occupied
             if (currentlyAssignedDigit != null)
             {
-                ResetAssignedDigit(); // <- this ensures the current one is put back
+                ResetAssignedDigit();
             }
 
             // Assign new digit
@@ -31,7 +32,7 @@ public class DigitDropSlot : MonoBehaviour, IDropHandler
             lockedInValue = digit.GetDigitValue();
             currentlyAssignedDigit = dropped;
 
-            // Deactivate the dropped digit and make it non-interactable
+            // Deactivate digit and make non-interactable
             dropped.SetActive(false);
             CanvasGroup canvasGroup = dropped.GetComponent<CanvasGroup>();
             canvasGroup.interactable = false;
@@ -67,5 +68,15 @@ public class DigitDropSlot : MonoBehaviour, IDropHandler
         slotImage.sprite = defaultSprite;
         slotImage.color = Color.white;
         lockedInValue = 0;
+    }
+
+    // Tap to reset the slot (works on Android)
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (currentlyAssignedDigit != null)
+        {
+            ResetSlot();
+            Debug.Log("Slot reset by tap.");
+        }
     }
 }

@@ -3,19 +3,24 @@ using TMPro;
 
 public class EnemyAI : MonoBehaviour
 {
-    public int attackValue; 
-    [Header("Enemy HP Display")]
+    public int attackValue;
+
+    [Header("Enemy HP Settings")]
+    public int maxHP = 3;
+    private int currentHP;
+    public TextMeshPro enemyHPText;
+
+    [Header("Enemy Value Display")]
     public TextMeshPro enemyValueText;
 
     [Header("Enemy Attack Display")]
-    public TextMeshPro enemyAttackText; // <- Add this in the Inspector
+    public TextMeshPro enemyAttackText;
 
     [Header("Target To Destroy")]
     public GameObject targetToDestroy;
 
     [Header("References")]
     public AuraPanelTrigger auraTrigger;
-
     public PanelTrigger panelTrigger;
     public PlayerMovement playerMovement;
 
@@ -30,11 +35,13 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         GenerateEnemyValue();
+        currentHP = maxHP;
+        UpdateHPDisplay();
     }
 
     public void GenerateEnemyValue()
     {
-        enemyValue = Random.Range(2000, 5000);
+        enemyValue = Random.Range(16, 512);
         if (enemyValueText != null)
             enemyValueText.text = enemyValue.ToString();
     }
@@ -46,14 +53,21 @@ public class EnemyAI : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        enemyValue -= damage;
-        enemyValue = Mathf.Max(0, enemyValue);
-        if (enemyValueText != null)
-            enemyValueText.text = enemyValue.ToString();
+        currentHP -= 1; // Take 1 hit regardless of damage value
+        currentHP = Mathf.Max(0, currentHP);
+        UpdateHPDisplay();
 
-        if (enemyValue == 0)
+        if (currentHP == 0)
         {
             DestroyEnemy();
+        }
+    }
+
+    private void UpdateHPDisplay()
+    {
+        if (enemyHPText != null)
+        {
+            enemyHPText.text = $"{currentHP}/{maxHP}";
         }
     }
 
@@ -64,25 +78,22 @@ public class EnemyAI : MonoBehaviour
             playerMovement.isStopped = false;
             auraTrigger.TogglePanel();
             Destroy(targetToDestroy);
-            ResetNumbers(); // Reset everything here
+            ResetNumbers();
         }
     }
 
     public void ResetNumbers()
     {
-        // Reset drop slots
         foreach (DigitDropSlot slot in dropSlots)
         {
             slot.ResetSlot();
         }
 
-        // Redraw digits
         foreach (RandomDigitDrawer drawer in digitAssigners)
         {
             drawer.DrawRandomDigit();
         }
 
-        // Reset operators
         foreach (OperatorCycleButton op in operatorButtons)
         {
             op.SetOperator("+");
@@ -97,13 +108,11 @@ public class EnemyAI : MonoBehaviour
         auraTrigger.TogglePanel();
         panelTrigger.TogglePanel();
         ResetNumbers();
-        attackValue = Random.Range(8, 256); // You can tweak this range
+        attackValue = Random.Range(8, 256);
         if (enemyAttackText != null)
         {
             enemyAttackText.text = $"{attackValue}";
         }
-
-        // You can later extend this to actually apply damage to the player, etc.
     }
 
     public void DefendTurn()
@@ -111,11 +120,10 @@ public class EnemyAI : MonoBehaviour
         auraTrigger.TogglePanel();
         panelTrigger.TogglePanel();
         ResetNumbers();
+        GenerateEnemyValue();
         if (enemyAttackText != null)
         {
             enemyAttackText.text = $"{attackValue}";
         }
-
-        // You can later extend this to actually apply damage to the player, etc.
     }
 }
