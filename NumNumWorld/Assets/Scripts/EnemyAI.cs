@@ -30,6 +30,14 @@ public class EnemyAI : MonoBehaviour
     public OperatorCycleButton[] operatorButtons = new OperatorCycleButton[8];
     public TextMeshProUGUI resultText;
 
+    [Header("Margin of Error Settings")]
+    public int maxMarginOfError = 5; // Customize this in the Inspector
+    public int appliedError = 0;     // For display/debugging
+
+    [Header("Margin of Error Display")]
+    public TextMeshPro enemyMarginText;
+
+
     private int enemyValue;
 
     void Start()
@@ -41,9 +49,21 @@ public class EnemyAI : MonoBehaviour
 
     public void GenerateEnemyValue()
     {
-        enemyValue = Random.Range(16, 512);
+        int baseValue = Random.Range(16, 512);
+        appliedError = Random.Range(-maxMarginOfError, maxMarginOfError + 1);
+        enemyValue = baseValue + appliedError;
+
+        if (enemyValue < 0) enemyValue = 0; // Clamp to avoid negatives
+
         if (enemyValueText != null)
+        {
             enemyValueText.text = enemyValue.ToString();
+        }
+
+        if (enemyMarginText != null)
+        {
+            enemyMarginText.text = $"±{Mathf.Abs(appliedError)}";
+        }
     }
 
     public int GetEnemyValue()
@@ -78,6 +98,7 @@ public class EnemyAI : MonoBehaviour
             playerMovement.isStopped = false;
             auraTrigger.TogglePanel();
             Destroy(targetToDestroy);
+            Destroy(gameObject);
             ResetNumbers();
         }
     }
@@ -109,6 +130,7 @@ public class EnemyAI : MonoBehaviour
         panelTrigger.TogglePanel();
         ResetNumbers();
         attackValue = Random.Range(8, 256);
+
         if (enemyAttackText != null)
         {
             enemyAttackText.text = $"{attackValue}";
@@ -121,6 +143,7 @@ public class EnemyAI : MonoBehaviour
         panelTrigger.TogglePanel();
         ResetNumbers();
         GenerateEnemyValue();
+
         if (enemyAttackText != null)
         {
             enemyAttackText.text = $"{attackValue}";

@@ -52,16 +52,17 @@ public class DEFENDComputeManager : MonoBehaviour
         if (currentEnemy != null)
         {
             int expected = currentEnemy.attackValue;
+            int margin = Mathf.Abs(currentEnemy.appliedError);
 
-            if (Mathf.Approximately(result, expected))
+            if (result >= expected - margin && result <= expected + margin)
             {
                 resultText.text += "\nPerfect block!";
                 Debug.Log("Player successfully blocked the attack.");
             }
             else
             {
-                resultText.text += "\nFailed block! You take 1 damage.";
-                Debug.Log($"Player takes damage! Enemy attack was {expected}, you computed {result}");
+                resultText.text += $"\nFailed block! You take 1 damage.";
+                Debug.Log($"Player takes damage! Enemy attack was {expected} (±{margin}), you computed {result}");
 
                 if (player != null)
                 {
@@ -76,6 +77,7 @@ public class DEFENDComputeManager : MonoBehaviour
             resultText.text += "\n(No enemy in range)";
         }
     }
+
 
     private float ApplyOperator(float a, string op, int b)
     {
