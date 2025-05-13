@@ -52,14 +52,19 @@ public class ComputeManager : MonoBehaviour
         // Show result
         resultText.text = "Result: " + result.ToString("0.##");
 
-        if (currentEnemy != null)
+        if (currentEnemy != null && currentEnemy.currentHP != 0)
         {
             int enemyValue = currentEnemy.GetEnemyValue();
-            if (Mathf.RoundToInt(result) == enemyValue)
+                if (Mathf.RoundToInt(result) == enemyValue)
                 {
                     resultText.text += "\nEnemy Defeated!";
-                    currentEnemy.DestroyEnemy();
-                    currentEnemy = null; // Clear reference
+                    currentEnemy.TakeDamage(1);
+
+                    // Only call AttackTurn if enemy still has HP
+                    if (currentEnemy != null && currentEnemy.currentHP > 0)
+                    {
+                        currentEnemy.AttackTurn();
+                    }
                 }
                 else
                 {
@@ -70,6 +75,8 @@ public class ComputeManager : MonoBehaviour
         else
         {
             resultText.text += "\n(No enemy in range)";
+            currentEnemy.DestroyEnemy();
+            currentEnemy = null; // Clear reference
         }
     }
 

@@ -7,7 +7,7 @@ public class EnemyAI : MonoBehaviour
 
     [Header("Enemy HP Settings")]
     public int maxHP = 3;
-    private int currentHP;
+    public int currentHP;
     public TextMeshPro enemyHPText;
 
     [Header("Enemy Value Display")]
@@ -53,7 +53,7 @@ public class EnemyAI : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        currentHP -= 1; // Take 1 hit regardless of damage value
+        currentHP -= damage; // Take 1 hit regardless of damage value
         currentHP = Mathf.Max(0, currentHP);
         UpdateHPDisplay();
 
