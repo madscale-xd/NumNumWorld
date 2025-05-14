@@ -21,6 +21,8 @@ public class ComputeManager : MonoBehaviour
 
     [Header("Enemy Reference")]
     public EnemyAI currentEnemy;
+    private EnemyTypeModifier enemyTypeModifier => currentEnemy?.GetComponent<EnemyTypeModifier>();
+    private EnemyAppendModifier enemyAppendModifier => currentEnemy?.GetComponent<EnemyAppendModifier>();
 
     [Header("Turn-based Panels")]
 
@@ -42,6 +44,12 @@ public class ComputeManager : MonoBehaviour
         string o3 = operator3.GetCurrentOperator();
         string o4 = operator4.GetCurrentOperator();
 
+        // Count matching operations used (this needs to happen before applying bonuses)
+        int operationsUsed = CountEnemyOperations(o1, o2, o3, o4);
+
+        // Get the bonus for attack and defense
+        string bonus = enemyTypeModifier.GetOperationBonus(operationsUsed);
+
         // Compute left to right
         float result = v1;
         result = ApplyOperator(result, o1, v2);
@@ -49,18 +57,28 @@ public class ComputeManager : MonoBehaviour
         result = ApplyOperator(result, o3, v4);
         result = ApplyOperator(result, o4, v5);
 
-        // Show result
-        resultText.text = "Result: " + result.ToString("0.##");
-
+        // Now apply the appended operation
         if (currentEnemy != null && currentEnemy.currentHP != 0)
         {
             int enemyValue = currentEnemy.GetEnemyValue();
             int margin = Mathf.Abs(currentEnemy.appliedError);
 
+            // Apply operation-based bonus (updates enemyTypeModifier.attackBonus internally)
+            int bonusDamage = 0;
+            if (enemyTypeModifier != null)
+            {
+                enemyTypeModifier.GetOperationBonus(operationsUsed); // This will update the bonusDamage
+                bonusDamage = enemyTypeModifier.attackBonus;
+            }
+
             if (result >= enemyValue - margin && result <= enemyValue + margin)
             {
                 resultText.text += "\nEnemy Defeated!";
-                currentEnemy.TakeDamage(1);
+
+                int totalDamage = 1 + bonusDamage;
+                currentEnemy.TakeDamage(totalDamage);
+
+                resultText.text += $"\nDealt {totalDamage} damage!";
 
                 // Only call AttackTurn if enemy still has HP
                 if (currentEnemy != null && currentEnemy.currentHP > 0)
@@ -101,5 +119,20 @@ public class ComputeManager : MonoBehaviour
                 return a / b;
             default: return a;
         }
+    }
+    private int CountEnemyOperations(string o1, string o2, string o3, string o4)
+    {
+        // Assuming currentEnemy is assigned and has a method to get its operation type (e.g., Addios)
+        string enemyOperation = enemyAppendModifier.GetCurrentEnemyOperation();  // This method would return "+" for Addios, "-" for Menos, etc.
+
+        int count = 0;
+
+        // Check how many times the enemy's operation is used in the current selection
+        if (o1 == enemyOperation) count++;
+        if (o2 == enemyOperation) count++;
+        if (o3 == enemyOperation) count++;
+        if (o4 == enemyOperation) count++;
+
+        return count;
     }
 }

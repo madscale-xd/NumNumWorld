@@ -49,7 +49,7 @@ public class EnemyAI : MonoBehaviour
 
     public void GenerateEnemyValue()
     {
-        int baseValue = Random.Range(16, 512);
+        int baseValue = Random.Range(16, 256);
         appliedError = Random.Range(-maxMarginOfError, maxMarginOfError + 1);
         enemyValue = baseValue + appliedError;
 

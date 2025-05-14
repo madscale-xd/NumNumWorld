@@ -74,4 +74,10 @@ public class PlayerMovement : MonoBehaviour
             playerHPText.text = $"{playerHP}/{maxHP}";
         }
     }
+
+    public void HealPlayer(int amount)
+    {
+        playerHP = Mathf.Min(playerHP + amount, maxHP);
+        UpdateHPDisplay(); // Optional method to update health bar/text
+    }
 }
