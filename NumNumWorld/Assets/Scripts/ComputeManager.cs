@@ -44,11 +44,12 @@ public class ComputeManager : MonoBehaviour
         string o3 = operator3.GetCurrentOperator();
         string o4 = operator4.GetCurrentOperator();
 
-        // Count matching operations used (this needs to happen before applying bonuses)
-        int operationsUsed = CountEnemyOperations(o1, o2, o3, o4);
-
-        // Get the bonus for attack and defense
-        string bonus = enemyTypeModifier.GetOperationBonus(operationsUsed);
+        // Set operation-based bonuses based on actual operators used
+        string[] usedOperators = new string[] { o1, o2, o3, o4 };
+        if (enemyTypeModifier != null)
+        {
+            enemyTypeModifier.SetOperationBonus(usedOperators);
+        }
 
         // Compute left to right
         float result = v1;
@@ -67,7 +68,8 @@ public class ComputeManager : MonoBehaviour
             int bonusDamage = 0;
             if (enemyTypeModifier != null)
             {
-                enemyTypeModifier.GetOperationBonus(operationsUsed); // This will update the bonusDamage
+                usedOperators = new string[] { o1, o2, o3, o4 };
+                enemyTypeModifier.SetOperationBonus(usedOperators); // Updates bonuses internally
                 bonusDamage = enemyTypeModifier.attackBonus;
             }
 
@@ -78,7 +80,7 @@ public class ComputeManager : MonoBehaviour
                 int totalDamage = 1 + bonusDamage;
                 currentEnemy.TakeDamage(totalDamage);
 
-                resultText.text += $"\nDealt {totalDamage} damage!";
+                Debug.Log( $"\nDealt {totalDamage} damage!");
 
                 // Only call AttackTurn if enemy still has HP
                 if (currentEnemy != null && currentEnemy.currentHP > 0)

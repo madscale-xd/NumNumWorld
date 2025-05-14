@@ -1,52 +1,85 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyTypeModifier : MonoBehaviour
 {
-    public enum EnemyType { Prescriptiva, Restrictiva, Alternativa }
+    public enum EnemyType { Prescriptiva, Restrictiva, Completativa }
 
     [Header("Enemy Type")]
-    public EnemyType enemyType; // Set this in the inspector to determine which type of bonus to apply
+    public EnemyType enemyType;
 
     [Header("Bonuses")]
-    public int attackBonus = 0;  // Set the bonus damage based on the condition
-    public int defenseBonus = 0; // Set the healing bonus based on the condition
-    
+    public int attackBonus = 0;
+    public int defenseBonus = 0;
+
     void Start()
     {
-        // Call to update the operator and number in the UI display
-        GetOperationBonus(1); // This will set the appended operator and update the UI text
+        // Dummy/default initialization with placeholders
+        SetOperationBonus(new string[] { "+", "-", "*", "/" });
     }
 
-    public string GetOperationBonus(int operationCount)
+    // ✅ Call this with the 4 operators used in the equation
+    public void SetOperationBonus(string[] usedOperators)
     {
-        // Determine the bonus based on the enemy type and the operation count
+        attackBonus = 0;
+        defenseBonus = 0;
+
         switch (enemyType)
         {
             case EnemyType.Prescriptiva:
-                if (operationCount >= 3)
+                if (CountMatchingOperations(usedOperators) >= 2)
                 {
-                    attackBonus = 1;  // +1 bonus damage
-                    defenseBonus = 1; // Heal +1 HP
+                    attackBonus = 1;
+                    defenseBonus = 1;
                 }
                 break;
 
             case EnemyType.Restrictiva:
-                if (operationCount < 2)
+                if (CountMatchingOperations(usedOperators) < 3)
                 {
-                    attackBonus = 1;  // +1 bonus damage
-                    defenseBonus = 1; // Heal +1 HP
+                    attackBonus = 1;
+                    defenseBonus = 1;
                 }
                 break;
 
-            case EnemyType.Alternativa:
-                if (operationCount == 4)
+            case EnemyType.Completativa:
+                HashSet<string> requiredOps = new HashSet<string> { "+", "-", "×", "÷" };
+                HashSet<string> opsUsed = new HashSet<string>(usedOperators);
+                if (requiredOps.SetEquals(opsUsed))
                 {
-                    attackBonus = 2;  // +2 bonus damage
-                    defenseBonus = 2; // Heal +2 HP
+                    attackBonus = 2;
+                    defenseBonus = 2;
                 }
                 break;
         }
+    }
 
+    // ✅ Optional: re-used by Prescriptiva and Restrictiva
+    private int CountMatchingOperations(string[] usedOperators)
+    {
+        int count = 0;
+        foreach (string op in usedOperators)
+        {
+            if (GetEnemyOperation() == op)
+                count++;
+        }
+        return count;
+    }
+
+    // Dummy method for now — customize this if each enemy has a preferred op
+    public string GetEnemyOperation()
+    {
+        switch (enemyType)
+        {
+            case EnemyType.Prescriptiva: return "+";
+            case EnemyType.Restrictiva: return "*";
+            default: return "";
+        }
+    }
+
+    // Optional string return if you still want this
+    public string GetOperationBonusText()
+    {
         return $"{attackBonus} Bonus Damage / Heal +{defenseBonus} HP";
     }
 }

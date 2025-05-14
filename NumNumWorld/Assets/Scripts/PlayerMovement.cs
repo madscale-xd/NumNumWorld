@@ -44,6 +44,11 @@ public class PlayerMovement : MonoBehaviour
         {
             computeManager.currentEnemy = enemy;
             defComputeManager.currentEnemy = enemy;
+            GetComponent<AuraPanelTrigger>().ShowPanel();
+            GetComponent<PanelTrigger>().ShowPanel();
+            enemy.AssignReferencesDynamically();
+            GetComponent<AuraPanelTrigger>().HidePanel();
+            GetComponent<PanelTrigger>().HidePanel();
         }
     }
 

@@ -42,11 +42,19 @@ public class DEFENDComputeManager : MonoBehaviour
         string o3 = operator3.GetCurrentOperator();
         string o4 = operator4.GetCurrentOperator();
 
+        // Set operation-based bonuses based on actual operators used
+        string[] usedOperators = new string[] { o1, o2, o3, o4 };
+        if (enemyTypeModifier != null)
+        {
+            enemyTypeModifier.SetOperationBonus(usedOperators);
+        }
+
         // Count how many times the enemy's operation appears
         int operationsUsed = CountEnemyOperations(o1, o2, o3, o4);  // Keep this in scope
 
         // Get the bonus for attack and defense
-        string bonus = enemyTypeModifier.GetOperationBonus(operationsUsed);
+        usedOperators = new string[] { o1, o2, o3, o4 };
+        enemyTypeModifier.SetOperationBonus(usedOperators); // Updates bonuses internally
 
         // Compute left to right
         float result = v1;

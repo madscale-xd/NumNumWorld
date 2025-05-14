@@ -42,6 +42,8 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
+        auraTrigger.TogglePanel();
+        panelTrigger.TogglePanel();
         GenerateEnemyValue();
         currentHP = maxHP;
         UpdateHPDisplay();
@@ -49,7 +51,7 @@ public class EnemyAI : MonoBehaviour
 
     public void GenerateEnemyValue()
     {
-        int baseValue = Random.Range(16, 256);
+        int baseValue = Random.Range(8, 100);
         appliedError = Random.Range(-maxMarginOfError, maxMarginOfError + 1);
         enemyValue = baseValue + appliedError;
 
@@ -97,14 +99,18 @@ public class EnemyAI : MonoBehaviour
         {
             playerMovement.isStopped = false;
             auraTrigger.TogglePanel();
+            ResetNumbers();
+            auraTrigger.ShowPanel();
+            panelTrigger.ShowPanel();
             Destroy(targetToDestroy);
             Destroy(gameObject);
-            ResetNumbers();
         }
     }
 
     public void ResetNumbers()
     {
+        if (resultText != null)
+            resultText.text = "Digits and operators reset!";
         foreach (DigitDropSlot slot in dropSlots)
         {
             slot.ResetSlot();
@@ -119,9 +125,6 @@ public class EnemyAI : MonoBehaviour
         {
             op.SetOperator("+");
         }
-
-        if (resultText != null)
-            resultText.text = "Digits and operators reset!";
     }
 
     public void AttackTurn()
@@ -129,7 +132,7 @@ public class EnemyAI : MonoBehaviour
         auraTrigger.TogglePanel();
         panelTrigger.TogglePanel();
         ResetNumbers();
-        attackValue = Random.Range(8, 256);
+        attackValue = Random.Range(8, 100);
 
         if (enemyAttackText != null)
         {
@@ -148,5 +151,21 @@ public class EnemyAI : MonoBehaviour
         {
             enemyAttackText.text = $"{attackValue}";
         }
+    }
+
+    public void AssignReferencesDynamically()
+    {
+        auraTrigger = FindObjectOfType<AuraPanelTrigger>();
+        panelTrigger = FindObjectOfType<PanelTrigger>();
+        playerMovement = FindObjectOfType<PlayerMovement>();
+
+        digitAssigners = FindObjectsOfType<RandomDigitDrawer>();
+        dropSlots = FindObjectsOfType<DigitDropSlot>();
+        operatorButtons = FindObjectsOfType<OperatorCycleButton>();
+
+        resultText = FindObjectOfType<TextMeshProUGUI>();
+
+        // Optional: you can log to confirm
+        Debug.Log($"[EnemyAI] Found {digitAssigners.Length} digit assigners, {dropSlots.Length} slots, {operatorButtons.Length} ops.");
     }
 }
