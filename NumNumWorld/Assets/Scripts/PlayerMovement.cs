@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Player Stats")]
     public int playerHP = 5;
+    public int maxHP = 5;
 
     [Header("Text Display")]
     public TextMeshPro playerHPText; // Assign this in the Inspector (not UGUI)
@@ -70,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (playerHPText != null)
         {
-            playerHPText.text = $"{playerHP}";
+            playerHPText.text = $"{playerHP}/{maxHP}";
         }
     }
 }
