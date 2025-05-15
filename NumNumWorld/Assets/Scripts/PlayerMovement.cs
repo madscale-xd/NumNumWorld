@@ -49,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
             enemy.AssignReferencesDynamically();
             GetComponent<AuraPanelTrigger>().HidePanel();
             GetComponent<PanelTrigger>().HidePanel();
+            enemy.GenerateValues();
         }
     }
 

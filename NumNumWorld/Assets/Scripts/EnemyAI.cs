@@ -42,8 +42,12 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
-        auraTrigger.TogglePanel();
-        panelTrigger.TogglePanel();
+        GenerateEnemyValue();
+        currentHP = maxHP;
+        UpdateHPDisplay();
+    }
+
+    public void GenerateValues(){
         GenerateEnemyValue();
         currentHP = maxHP;
         UpdateHPDisplay();
@@ -98,6 +102,7 @@ public class EnemyAI : MonoBehaviour
         if (targetToDestroy != null)
         {
             playerMovement.isStopped = false;
+            FindObjectOfType<PrefabSpawner>().SpawnRandomPrefab();
             auraTrigger.TogglePanel();
             ResetNumbers();
             auraTrigger.ShowPanel();
@@ -142,10 +147,10 @@ public class EnemyAI : MonoBehaviour
 
     public void DefendTurn()
     {
+        GenerateEnemyValue();
         auraTrigger.TogglePanel();
         panelTrigger.TogglePanel();
         ResetNumbers();
-        GenerateEnemyValue();
 
         if (enemyAttackText != null)
         {

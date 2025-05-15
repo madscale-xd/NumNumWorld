@@ -529,7 +529,7 @@ GameObject:
   - component: {fileID: 3336106940071901580}
   - component: {fileID: 6039833494785355536}
   m_Layer: 0
-  m_Name: ADDIOS_P
+  m_Name: ADDIOS_R
   m_TagString: Aura
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -761,7 +761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bc6f85538d13a7459b0624c8db237b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 0
+  enemyType: 1
   attackBonus: 0
   defenseBonus: 0
 --- !u!1 &5098666607060855725
@@ -1180,7 +1180,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 0.029896643, g: 0.1552474, b: 0.83396226, a: 1}
+  m_Color: {r: 0.6754716, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
