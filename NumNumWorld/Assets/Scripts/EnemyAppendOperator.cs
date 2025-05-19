@@ -34,11 +34,11 @@ public class EnemyAppendModifier : MonoBehaviour
                 appendedNumber = Random.Range(1, 10);
                 break;
             case EnemyType.Exos:
-                appendedOperator = "*";
+                appendedOperator = "×";
                 appendedNumber = Random.Range(1, 3);
                 break;
             case EnemyType.Dividos:
-                appendedOperator = "/";
+                appendedOperator = "÷";
                 appendedNumber = Random.Range(1, 3);
                 break;
             case EnemyType.Equalos:
@@ -73,8 +73,8 @@ public class EnemyAppendModifier : MonoBehaviour
         {
             case EnemyType.Addios: return "+";
             case EnemyType.Menos: return "-";
-            case EnemyType.Exos: return "*";
-            case EnemyType.Dividos: return "/";
+            case EnemyType.Exos: return "×";
+            case EnemyType.Dividos: return "÷";
             case EnemyType.Equalos: return "+"; // Equalos uses "+" for healing logic
             default: return "+";
         }

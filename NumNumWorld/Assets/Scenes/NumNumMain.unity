@@ -1044,7 +1044,21 @@ MonoBehaviour:
   - {fileID: 4350867351211249020, guid: 35ad4a96faf3e004bbb94938c4db2b04, type: 3}
   - {fileID: 4350867351211249020, guid: 266db1ae64fe3a44792819728bc0bcbf, type: 3}
   - {fileID: 4350867351211249020, guid: d6ff7bb9546eff8429a714aade2e581d, type: 3}
+  - {fileID: 4350867351211249020, guid: de284f9e355c9e942bde608cc5785c96, type: 3}
+  - {fileID: 4350867351211249020, guid: e9ed24ecf9029f048be2ba5ce53678cf, type: 3}
+  - {fileID: 4350867351211249020, guid: e9bb392b41f249c4b981a3e824fc7702, type: 3}
+  - {fileID: 4350867351211249020, guid: 0d5b4504afcdfef4e92855670b82dd97, type: 3}
+  - {fileID: 4350867351211249020, guid: caea673912a46d94c80e07226fc0b06a, type: 3}
+  - {fileID: 4350867351211249020, guid: 982261bdecf0bc54d834b3423d3d8030, type: 3}
+  - {fileID: 4350867351211249020, guid: 6032248324099ac479fcfdee284e570c, type: 3}
+  - {fileID: 4350867351211249020, guid: c9de464288d49f0478924bf8de751033, type: 3}
+  - {fileID: 4350867351211249020, guid: 1a57c915166f0484ab3b97abf5b8f719, type: 3}
   spawnPoint: {fileID: 311386369}
+  killCount: -1
+  threshold1: 1
+  threshold2: 2
+  threshold3: 3
+  threshold4: 4
 --- !u!1 &331331491
 GameObject:
   m_ObjectHideFlags: 0
