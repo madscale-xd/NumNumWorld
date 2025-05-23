@@ -89,7 +89,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private void UpdateHPDisplay()
+    public void UpdateHPDisplay()
     {
         if (enemyHPText != null)
         {
