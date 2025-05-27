@@ -3776,6 +3776,7 @@ MonoBehaviour:
   computeManager: {fileID: 23845166}
   defComputeManager: {fileID: 1535239248}
   playerHP: 5
+  maxHP: 5
   playerHPText: {fileID: 365563137}
 --- !u!212 &1137449213
 SpriteRenderer:
@@ -3930,6 +3931,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 958801193}
+  canvasGroup: {fileID: 0}
 --- !u!114 &1137449218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3943,6 +3945,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 721760080}
+  canvasGroup: {fileID: 0}
 --- !u!1 &1214023975
 GameObject:
   m_ObjectHideFlags: 0
@@ -7314,8 +7317,8 @@ Transform:
   m_GameObject: {fileID: 2047633232}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.1, y: -0.12241292, z: 12.82}
-  m_LocalScale: {x: 22.40717, y: 12.14, z: 1}
+  m_LocalPosition: {x: 5.15, y: -4.42, z: 12.82}
+  m_LocalScale: {x: 0.6416741, y: 0.2892437, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 519420032}
@@ -7361,7 +7364,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 78a20f5e8435f14458dfc0cc01646094, type: 3}
   m_Color: {r: 0.35519397, g: 0.7673212, b: 0.90943396, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -8236,13 +8239,13 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2640759433873193066, guid: cd142f46236c27642b06ca3335894ffc, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 7815337323542865203, guid: cd142f46236c27642b06ca3335894ffc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 8889691828444970601, guid: cd142f46236c27642b06ca3335894ffc, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 6793716354004292018, guid: cd142f46236c27642b06ca3335894ffc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 6136937211714007574, guid: cd142f46236c27642b06ca3335894ffc, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 8899282855772829820, guid: cd142f46236c27642b06ca3335894ffc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: cd142f46236c27642b06ca3335894ffc, type: 3}
