@@ -89,4 +89,15 @@ public class SceneButtonManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+
+    public void LoadNewGame()
+    {
+        // Clear the existing save BEFORE reloading
+        var tempSaver = new GameObject("TempSaver").AddComponent<SceneSaver>();
+        tempSaver.ClearSave();
+        Destroy(tempSaver.gameObject);
+
+        // Keep listener active — it'll run, but won't load data (file is gone)
+        SceneManager.LoadScene("NumNumMain");
+    }
 }
