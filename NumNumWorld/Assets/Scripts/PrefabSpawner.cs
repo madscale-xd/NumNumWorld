@@ -9,6 +9,9 @@ public class PrefabSpawner : MonoBehaviour
     [Header("Spawn Settings")]
     [SerializeField] private Transform spawnPoint;
 
+    [Header("Global Scale Factor")]
+    [SerializeField] private float prefabScaleFactor = 1f;
+
     [Header("Kill Count")]
     public int killCount = -1;
 
@@ -55,10 +58,9 @@ public class PrefabSpawner : MonoBehaviour
         int randomIndex = Random.Range(0, validChoices.Count);
         GameObject prefabToSpawn = validChoices[randomIndex];
 
-        Instantiate(prefabToSpawn, spawnPoint != null ? spawnPoint.position : transform.position, Quaternion.identity);
-
-        // After spawning prefab
+        // Only spawn once and store the result
         GameObject spawned = Instantiate(prefabToSpawn, spawnPoint != null ? spawnPoint.position : transform.position, Quaternion.identity);
+        spawned.transform.localScale *= prefabScaleFactor;
 
         // Apply maxMarginOfError dynamically
         EnemyAI ai = spawned.GetComponent<EnemyAI>();
