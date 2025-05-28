@@ -532,6 +532,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1284417449}
   - component: {fileID: 1284417448}
+  - component: {fileID: 1284417450}
   m_Layer: 0
   m_Name: SceneButtonManager
   m_TagString: Untagged
@@ -566,6 +567,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1284417450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1284417447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 267ab1872c06f6942b1e6291507e2e84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveFileName: scene_save.json
+  player: {fileID: 0}
 --- !u!1 &1288900374
 GameObject:
   m_ObjectHideFlags: 0

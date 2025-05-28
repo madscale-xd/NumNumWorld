@@ -86,4 +86,21 @@ public class PlayerMovement : MonoBehaviour
         playerHP = Mathf.Min(playerHP + amount, maxHP);
         UpdateHPDisplay(); // Optional method to update health bar/text
     }
+
+    public PlayerData GetPlayerData()
+    {
+        return new PlayerData
+        {
+            playerHP = this.playerHP,
+            maxHP = this.maxHP
+        };
+    }
+
+    public void LoadPlayerData(PlayerData data)
+    {
+        this.playerHP = data.playerHP;
+        this.maxHP = data.maxHP;
+        UpdateHPDisplay();
+    }
+
 }
