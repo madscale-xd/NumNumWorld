@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.IO;
+using System.Collections;
 
 public class SceneSaver : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class SceneSaver : MonoBehaviour
     {
         if (player == null)
             player = FindObjectOfType<PlayerMovement>();
+        StartCoroutine("LoadAfterDelay");
     }
 
     public void SaveScene()
@@ -51,7 +53,7 @@ public class SceneSaver : MonoBehaviour
 
         Debug.Log($"[SceneSaver] Loaded player position: {data.playerPosition}");
         Debug.Log($"[SceneSaver] Loaded player stats: {data.playerStats}");
-        
+
         if (player == null)
         {
             Debug.LogError("[SceneSaver] Player reference is null!");
@@ -79,6 +81,21 @@ public class SceneSaver : MonoBehaviour
         {
             File.Delete(SavePath);
             Debug.Log("[SceneSaver] Save file deleted.");
+        }
+    }
+    
+    private IEnumerator LoadAfterDelay()
+    {
+        yield return null;  // Let the scene initialize
+        SceneSaver sceneSaver = FindObjectOfType<SceneSaver>();
+        if (sceneSaver != null)
+        {
+            Debug.Log("[SceneButtonManager] Calling LoadScene on SceneSaver");
+            sceneSaver.LoadScene();
+        }
+        else
+        {
+            Debug.LogWarning("[SceneButtonManager] SceneSaver not found!");
         }
     }
 }

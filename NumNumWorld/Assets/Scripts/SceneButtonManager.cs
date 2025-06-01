@@ -70,7 +70,7 @@ public class SceneButtonManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");  // Return to main menu scene
     }
 
-    public void Newas()
+    public void NewGame()
     {
         SceneManager.LoadScene("NumNumMain");
     }
