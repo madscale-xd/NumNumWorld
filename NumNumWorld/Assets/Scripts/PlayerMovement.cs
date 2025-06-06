@@ -50,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
             GetComponent<AuraPanelTrigger>().HidePanel();
             GetComponent<PanelTrigger>().HidePanel();
             enemy.GenerateValues();
+            enemy.SetTextVisibility(attackVisible: false, defenseVisible: true);
         }
     }
 

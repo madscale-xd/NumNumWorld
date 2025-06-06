@@ -45,9 +45,11 @@ public class EnemyAI : MonoBehaviour
         GenerateEnemyValue();
         currentHP = maxHP;
         UpdateHPDisplay();
+        SetTextVisibility(false, false);
     }
 
-    public void GenerateValues(){
+    public void GenerateValues()
+    {
         GenerateEnemyValue();
         currentHP = maxHP;
         UpdateHPDisplay();
@@ -143,6 +145,8 @@ public class EnemyAI : MonoBehaviour
         {
             enemyAttackText.text = $"{attackValue}";
         }
+
+        SetTextVisibility(attackVisible: true, defenseVisible: false);
     }
 
     public void DefendTurn()
@@ -156,6 +160,8 @@ public class EnemyAI : MonoBehaviour
         {
             enemyAttackText.text = $"{attackValue}";
         }
+
+        SetTextVisibility(attackVisible: false, defenseVisible: true);
     }
 
     public void AssignReferencesDynamically()
@@ -172,5 +178,14 @@ public class EnemyAI : MonoBehaviour
 
         // Optional: you can log to confirm
         Debug.Log($"[EnemyAI] Found {digitAssigners.Length} digit assigners, {dropSlots.Length} slots, {operatorButtons.Length} ops.");
+    }
+    
+    public void SetTextVisibility(bool attackVisible, bool defenseVisible)
+    {
+        if (enemyAttackText != null)
+            enemyAttackText.gameObject.SetActive(attackVisible);
+
+        if (enemyValueText != null)
+            enemyValueText.gameObject.SetActive(defenseVisible);
     }
 }
