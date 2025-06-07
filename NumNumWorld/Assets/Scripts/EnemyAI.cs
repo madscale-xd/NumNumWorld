@@ -59,7 +59,7 @@ public class EnemyAI : MonoBehaviour
     {
         int baseValue = Random.Range(8, 100);
         appliedError = Random.Range(-maxMarginOfError, maxMarginOfError + 1);
-        enemyValue = baseValue + appliedError;
+        enemyValue = baseValue+appliedError;
 
         if (enemyValue < 0) enemyValue = 0; // Clamp to avoid negatives
 
@@ -134,7 +134,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    public void AttackTurn()
+    public void AttackTurn() // enemy attacking
     {
         auraTrigger.TogglePanel();
         panelTrigger.TogglePanel();
@@ -149,7 +149,7 @@ public class EnemyAI : MonoBehaviour
         SetTextVisibility(attackVisible: true, defenseVisible: false);
     }
 
-    public void DefendTurn()
+    public void DefendTurn() // enemy defending (happens first)
     {
         GenerateEnemyValue();
         auraTrigger.TogglePanel();

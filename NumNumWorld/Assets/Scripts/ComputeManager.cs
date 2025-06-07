@@ -58,6 +58,16 @@ public class ComputeManager : MonoBehaviour
         result = ApplyOperator(result, o3, v4);
         result = ApplyOperator(result, o4, v5);
 
+        if (currentEnemy != null && enemyAppendModifier != null)
+        {
+            // Get the appended operator and number from the enemy's append modifier
+            string appendedOperator = enemyAppendModifier.GetAppendedOperator();
+            int appendedNumber = enemyAppendModifier.GetAppendedNumber();
+
+            // Apply the appended operation to the result
+            result = ApplyOperator(result, appendedOperator, appendedNumber);
+        }
+
         // Now apply the appended operation
         if (currentEnemy != null && currentEnemy.currentHP != 0)
         {
@@ -73,6 +83,9 @@ public class ComputeManager : MonoBehaviour
                 bonusDamage = enemyTypeModifier.attackBonus;
             }
 
+            // Debug the computed value and acceptable range
+            Debug.Log($"Computed Result: {result} | Enemy Value: {enemyValue} | Acceptable Range: [{enemyValue - margin}, {enemyValue + margin}]");
+
             if (result >= enemyValue - margin && result <= enemyValue + margin)
             {
                 resultText.text += "\nEnemy Defeated!";
@@ -80,9 +93,8 @@ public class ComputeManager : MonoBehaviour
                 int totalDamage = 1 + bonusDamage;
                 currentEnemy.TakeDamage(totalDamage);
 
-                Debug.Log( $"\nDealt {totalDamage} damage!");
+                Debug.Log($"\nDealt {totalDamage} damage!");
 
-                // Only call AttackTurn if enemy still has HP
                 if (currentEnemy != null && currentEnemy.currentHP > 0)
                 {
                     currentEnemy.AttackTurn();

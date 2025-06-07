@@ -81,6 +81,8 @@ public class DEFENDComputeManager : MonoBehaviour
             int expected = currentEnemy.attackValue;
             int margin = Mathf.Abs(currentEnemy.appliedError);
 
+            Debug.Log($"Computed Result: {result} | Enemy Value: {expected} | Acceptable Range: [{expected - margin}, {expected + margin}]");
+
             // Operations used should be already available here
             if (result >= expected - margin && result <= expected + margin)
             {
