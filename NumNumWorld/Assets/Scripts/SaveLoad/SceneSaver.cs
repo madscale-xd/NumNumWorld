@@ -9,10 +9,14 @@ public class SceneSaver : MonoBehaviour
 
     private string SavePath => Path.Combine(Application.persistentDataPath, saveFileName);
 
+    public PrefabSpawner spawner;
+
     void Awake()
     {
         if (player == null)
             player = FindObjectOfType<PlayerMovement>();
+        if (spawner == null)
+            spawner = FindObjectOfType<PrefabSpawner>();
         StartCoroutine("LoadAfterDelay");
     }
 
@@ -34,7 +38,10 @@ public class SceneSaver : MonoBehaviour
                 position = currentEnemy.transform.position
             };
         }
-
+        if (spawner != null)
+        {
+            data.killCount = spawner.killCount;
+        }
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(SavePath, json);
         Debug.Log($"[SceneSaver] Saved scene to {SavePath}");
@@ -70,6 +77,12 @@ public class SceneSaver : MonoBehaviour
             currentEnemy.currentHP = data.currentEnemy.currentHP;
             currentEnemy.maxHP = data.currentEnemy.maxHP;
             currentEnemy.UpdateHPDisplay();
+        }
+
+        if (spawner != null)
+        {
+            spawner.killCount = data.killCount;
+            Debug.Log($"[SceneSaver] Loaded kill count: {data.killCount}");
         }
 
         Debug.Log("[SceneSaver] Scene data loaded.");

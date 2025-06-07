@@ -5,6 +5,8 @@ public class EnemyAI : MonoBehaviour
 {
     public int attackValue;
 
+    public int rampingValue = 0;
+
     [Header("Enemy HP Settings")]
     public int maxHP = 3;
     public int currentHP;
@@ -57,7 +59,7 @@ public class EnemyAI : MonoBehaviour
 
     public void GenerateEnemyValue()
     {
-        int baseValue = Random.Range(8, 100);
+        int baseValue = Random.Range(8 + rampingValue, 100 + rampingValue);
         appliedError = Random.Range(-maxMarginOfError, maxMarginOfError + 1);
         enemyValue = baseValue+appliedError;
 
@@ -139,7 +141,7 @@ public class EnemyAI : MonoBehaviour
         auraTrigger.TogglePanel();
         panelTrigger.TogglePanel();
         ResetNumbers();
-        attackValue = Random.Range(8, 100);
+        attackValue = Random.Range(8 + rampingValue, 100 + rampingValue);
 
         if (enemyAttackText != null)
         {

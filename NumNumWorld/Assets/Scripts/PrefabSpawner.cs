@@ -9,7 +9,7 @@ public class PrefabSpawner : MonoBehaviour
     [Header("Spawn Settings")]
     [SerializeField] private Transform spawnPoint;
 
-    [Header("Global Scale Factor")]
+    [Header("Global Size Factor")]
     [SerializeField] private float prefabScaleFactor = 1f;
 
     [Header("Kill Count")]
@@ -72,6 +72,7 @@ public class PrefabSpawner : MonoBehaviour
             int hpValue = GetHPForKillCount();
             ai.maxHP = hpValue;
             ai.currentHP = hpValue; // Set currentHP to match for a fresh enemy
+            ai.rampingValue = killCount;
             ai.UpdateHPDisplay();   // Update the UI if needed
         }
 
