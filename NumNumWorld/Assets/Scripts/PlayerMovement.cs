@@ -65,6 +65,11 @@ public class PlayerMovement : MonoBehaviour
         if (playerHP <= 0)
         {
             Debug.Log("Player HP reached 0. Loading EndScene...");
+            SceneSaver sceneSaver = FindObjectOfType<SceneSaver>();
+            if (sceneSaver != null)
+            {
+                sceneSaver.SaveScene();
+            }
             SceneManager.LoadScene("EndScene");
         }
     }

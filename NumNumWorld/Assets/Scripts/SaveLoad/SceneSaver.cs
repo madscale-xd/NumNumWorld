@@ -63,7 +63,7 @@ public class SceneSaver : MonoBehaviour
 
         if (player == null)
         {
-            Debug.LogError("[SceneSaver] Player reference is null!");
+            Debug.LogWarning("[SceneSaver] Player reference is null!");
             return;
         }
 
@@ -96,7 +96,7 @@ public class SceneSaver : MonoBehaviour
             Debug.Log("[SceneSaver] Save file deleted.");
         }
     }
-    
+
     private IEnumerator LoadAfterDelay()
     {
         yield return null;  // Let the scene initialize
@@ -110,5 +110,18 @@ public class SceneSaver : MonoBehaviour
         {
             Debug.LogWarning("[SceneButtonManager] SceneSaver not found!");
         }
+    }
+
+    public int GetKillCount()
+    {
+        if (!File.Exists(SavePath))
+        {
+            Debug.LogWarning("[SceneSaver] No save file exists. Returning 0.");
+            return 0;
+        }
+
+        string json = File.ReadAllText(SavePath);
+        SceneSaveData data = JsonUtility.FromJson<SceneSaveData>(json);
+        return data.killCount;
     }
 }

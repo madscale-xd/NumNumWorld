@@ -82,6 +82,11 @@ public class SceneButtonManager : MonoBehaviour
 
     public void LoadMenu()
     {
+        var tempSaver = new GameObject("TempSaver").AddComponent<SceneSaver>();
+        tempSaver.ClearSave();
+        Destroy(tempSaver.gameObject);
+
+        // Keep listener active — it'll run, but won't load data (file is gone)
         SceneManager.LoadScene("MainMenu");
     }
 

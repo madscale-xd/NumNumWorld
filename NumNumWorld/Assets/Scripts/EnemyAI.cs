@@ -118,8 +118,6 @@ public class EnemyAI : MonoBehaviour
 
     public void ResetNumbers()
     {
-        if (resultText != null)
-            resultText.text = "Digits and operators reset!";
         foreach (DigitDropSlot slot in dropSlots)
         {
             slot.ResetSlot();

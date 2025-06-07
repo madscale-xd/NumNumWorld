@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PrefabSpawner : MonoBehaviour
 {
@@ -15,20 +16,22 @@ public class PrefabSpawner : MonoBehaviour
     [Header("Kill Count")]
     public int killCount = -1;
 
+    [Header("Kill Count UI")]
+    [SerializeField] private TextMeshProUGUI killCountText;
+
     [Header("Kill Thresholds (Editable)")]
-    public int threshold1 = 5;   // e.g., 0–4 → elements 0–2
-    public int threshold2 = 10;  // e.g., 5–9 → + elements 3–5
-    public int threshold3 = 20;  // e.g., 10–19 → + elements 6–8
-    public int threshold4 = 30;  // e.g., 20–29 → + elements 9–11
+    public int threshold1 = 5;
+    public int threshold2 = 10;
+    public int threshold3 = 20;
+    public int threshold4 = 30;
 
     [Header("Dynamic Difficulty Settings")]
     [SerializeField] private List<int> maxErrorByStage = new List<int> { 10, 7, 5, 3, 1 };
     [SerializeField] private List<int> maxHPByStage = new List<int> { 3, 5, 7, 9, 12 };
 
-
     void Start()
     {
-        SpawnRandomPrefab();
+        SpawnRandomPrefab(); // Also calls UpdateKillCountUI
     }
 
     public void SpawnRandomPrefab()
@@ -58,26 +61,37 @@ public class PrefabSpawner : MonoBehaviour
         int randomIndex = Random.Range(0, validChoices.Count);
         GameObject prefabToSpawn = validChoices[randomIndex];
 
-        // Only spawn once and store the result
-        GameObject spawned = Instantiate(prefabToSpawn, spawnPoint != null ? spawnPoint.position : transform.position, Quaternion.identity);
+        GameObject spawned = Instantiate(
+            prefabToSpawn,
+            spawnPoint != null ? spawnPoint.position : transform.position,
+            Quaternion.identity
+        );
+
         spawned.transform.localScale *= prefabScaleFactor;
 
-        // Apply maxMarginOfError dynamically
+        // Configure enemy stats
         EnemyAI ai = spawned.GetComponent<EnemyAI>();
         if (ai != null)
         {
             int errorValue = GetErrorForKillCount();
             ai.maxMarginOfError = errorValue;
-            Debug.Log($"[PrefabSpawner] Applied maxMarginOfError: {errorValue}");
             int hpValue = GetHPForKillCount();
             ai.maxHP = hpValue;
-            ai.currentHP = hpValue; // Set currentHP to match for a fresh enemy
+            ai.currentHP = hpValue;
             ai.rampingValue = killCount;
-            ai.UpdateHPDisplay();   // Update the UI if needed
+            ai.UpdateHPDisplay();
         }
 
-
         Debug.Log($"[PrefabSpawner] Spawned: {prefabToSpawn.name}, Kill Count: {killCount}");
+
+        // ✅ Update UI
+        UpdateKillCountUI();
+    }
+
+    private void UpdateKillCountUI()
+    {
+        if (killCountText != null)
+            killCountText.text = $"Kills: {killCount}";
     }
 
     private int GetErrorForKillCount()
