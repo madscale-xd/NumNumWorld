@@ -39,6 +39,8 @@ public class EnemyAI : MonoBehaviour
     [Header("Margin of Error Display")]
     public TextMeshPro enemyMarginText;
 
+    public int rampMult;
+
 
     private int enemyValue;
 
@@ -59,7 +61,7 @@ public class EnemyAI : MonoBehaviour
 
     public void GenerateEnemyValue()
     {
-        int baseValue = Random.Range(8 + rampingValue, 100 + rampingValue);
+        int baseValue = Random.Range(8 + (rampMult*rampingValue), 100 + (rampMult*rampingValue));
         appliedError = Random.Range(-maxMarginOfError, maxMarginOfError + 1);
         enemyValue = baseValue+appliedError;
 
@@ -139,7 +141,7 @@ public class EnemyAI : MonoBehaviour
         auraTrigger.TogglePanel();
         panelTrigger.TogglePanel();
         ResetNumbers();
-        attackValue = Random.Range(8 + rampingValue, 100 + rampingValue);
+        attackValue = Random.Range(8 + (rampMult*rampingValue), 100 + (rampMult*rampingValue));
 
         if (enemyAttackText != null)
         {

@@ -24,10 +24,16 @@ public class PrefabSpawner : MonoBehaviour
     public int threshold2 = 10;
     public int threshold3 = 20;
     public int threshold4 = 30;
+    public int threshold5 = 40;
+    public int threshold6 = 50;
+    public int threshold7 = 60;
+    public int threshold8 = 70;
+    public int threshold9 = 80;
+    public int threshold10 = 100;
 
     [Header("Dynamic Difficulty Settings")]
-    [SerializeField] private List<int> maxErrorByStage = new List<int> { 10, 7, 5, 3, 1 };
-    [SerializeField] private List<int> maxHPByStage = new List<int> { 3, 5, 7, 9, 12 };
+    [SerializeField] private List<int> maxErrorByStage = new List<int> {15, 13, 10, 7, 4, 2, 1};
+    [SerializeField] private List<int> maxHPByStage = new List<int> { 3, 5, 7, 9, 12, 16, 20, 25, 35, 50 };
 
     void Start()
     {
@@ -80,6 +86,7 @@ public class PrefabSpawner : MonoBehaviour
             ai.currentHP = hpValue;
             ai.rampingValue = killCount;
             ai.UpdateHPDisplay();
+            ai.rampMult = GetMultForKillCount();
         }
 
         Debug.Log($"[PrefabSpawner] Spawned: {prefabToSpawn.name}, Kill Count: {killCount}");
@@ -98,14 +105,18 @@ public class PrefabSpawner : MonoBehaviour
     {
         if (killCount < threshold1)
             return maxErrorByStage[0];
-        else if (killCount < threshold2)
-            return maxErrorByStage[1];
         else if (killCount < threshold3)
-            return maxErrorByStage[2];
+            return maxErrorByStage[1];
         else if (killCount < threshold4)
+            return maxErrorByStage[2];
+        else if (killCount < threshold5)
             return maxErrorByStage[3];
-        else
+        else if (killCount < threshold6)
             return maxErrorByStage[4];
+        else if (killCount < threshold8)
+            return maxErrorByStage[5];
+        else
+            return maxErrorByStage[6];
     }
 
     private int GetHPForKillCount()
@@ -118,7 +129,30 @@ public class PrefabSpawner : MonoBehaviour
             return maxHPByStage[2];
         else if (killCount < threshold4)
             return maxHPByStage[3];
-        else
+        else if (killCount < threshold5)
             return maxHPByStage[4];
+        else if (killCount < threshold6)
+            return maxHPByStage[5];
+        else if (killCount < threshold7)
+            return maxHPByStage[6];
+        else if (killCount < threshold8)
+            return maxHPByStage[7];
+        else if (killCount < threshold9)
+            return maxHPByStage[8];
+        else
+            return maxHPByStage[9];
+    }
+
+    private int GetMultForKillCount()
+    {
+        if (killCount < threshold1)
+            return 1;
+        else if (killCount < threshold4)
+            return 2;
+        else if (killCount < threshold8)
+            return 3;
+        else
+            return 4;
+
     }
 }
