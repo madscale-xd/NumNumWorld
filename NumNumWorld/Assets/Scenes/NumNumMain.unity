@@ -1041,8 +1041,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabChoices:
-  - {fileID: 4350867351211249020, guid: 35ad4a96faf3e004bbb94938c4db2b04, type: 3}
-  - {fileID: 4350867351211249020, guid: 266db1ae64fe3a44792819728bc0bcbf, type: 3}
+  - {fileID: 4350867351211249020, guid: de284f9e355c9e942bde608cc5785c96, type: 3}
+  - {fileID: 4350867351211249020, guid: e9ed24ecf9029f048be2ba5ce53678cf, type: 3}
   - {fileID: 4350867351211249020, guid: d6ff7bb9546eff8429a714aade2e581d, type: 3}
   - {fileID: 4350867351211249020, guid: de284f9e355c9e942bde608cc5785c96, type: 3}
   - {fileID: 4350867351211249020, guid: e9ed24ecf9029f048be2ba5ce53678cf, type: 3}

@@ -496,7 +496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackValue: 0
   rampingValue: 0
-  animator: {fileID: 0}
+  animator: {fileID: 1437060564398705843}
   animationStateName: 
   maxHP: 3
   currentHP: 0
@@ -802,7 +802,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0084991455, y: -0.09099984}
+  m_AnchoredPosition: {x: 0.0084991455, y: 0.16400018}
   m_SizeDelta: {x: 5.39519, y: 2.242}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &8256478265578475009
@@ -1138,7 +1138,7 @@ Transform:
   m_GameObject: {fileID: 7762885092840537196}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.012000047, y: -0.05700003, z: -0.46}
+  m_LocalPosition: {x: -0.012000047, y: 0.198, z: -0.46}
   m_LocalScale: {x: 0.29780114, y: 1.377908, z: 5.15062}
   m_ConstrainProportionsScale: 0
   m_Children: []
