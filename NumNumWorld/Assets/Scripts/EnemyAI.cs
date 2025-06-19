@@ -93,6 +93,7 @@ public class EnemyAI : MonoBehaviour
 
         if (currentHP == 0)
         {
+            AudioManager.Instance.PlayEnemyDeath();
             DestroyEnemy();
         }
     }

@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneButtonManager : MonoBehaviour
 {
+    private AudioManager audioManager;
+
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -17,6 +19,8 @@ public class SceneButtonManager : MonoBehaviour
     void Start()
     {
         Cursor.visible = true;
+        
+        
     }
 
     void Update()
@@ -29,11 +33,13 @@ public class SceneButtonManager : MonoBehaviour
 
     public void QuitGame()
     {
+        AudioManager.Instance.PlayButton();
         Application.Quit();
     }
 
     public void LoadGame()
     {
+        AudioManager.Instance.PlayButton();
         SceneManager.LoadScene("NumNumMain"); // Load your gameplay scene
     }
 
@@ -72,16 +78,19 @@ public class SceneButtonManager : MonoBehaviour
 
     public void NewGame()
     {
+        AudioManager.Instance.PlayButton();
         SceneManager.LoadScene("NumNumMain");
     }
 
     public void LoadRetry()
     {
+        AudioManager.Instance.PlayButton();
         SceneManager.LoadScene("NumNumMain");
     }
 
     public void LoadMenu()
     {
+         AudioManager.Instance.PlayButton();
         var tempSaver = new GameObject("TempSaver").AddComponent<SceneSaver>();
         tempSaver.ClearSave();
         Destroy(tempSaver.gameObject);
@@ -92,11 +101,13 @@ public class SceneButtonManager : MonoBehaviour
 
     public void BackToMenu()
     {
+        AudioManager.Instance.PlayButton();
         SceneManager.LoadScene("MainMenu");
     }
 
     public void LoadNewGame()
     {
+         AudioManager.Instance.PlayButton();
         // Clear the existing save BEFORE reloading
         var tempSaver = new GameObject("TempSaver").AddComponent<SceneSaver>();
         tempSaver.ClearSave();

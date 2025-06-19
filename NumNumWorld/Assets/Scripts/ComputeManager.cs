@@ -31,6 +31,8 @@ public class ComputeManager : MonoBehaviour
 
     public void OnComputeButtonPressed()
     {
+        AudioManager.Instance.PlayButton();
+
         // Get values
         int v1 = dropSlot1.lockedInValue;
         int v2 = dropSlot2.lockedInValue;
