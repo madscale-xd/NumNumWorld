@@ -140,6 +140,7 @@ public class EnemyAI : MonoBehaviour
 
     public void AttackTurn() // enemy attacking
     {
+        animator.Play("AA_Atk");
         auraTrigger.TogglePanel();
         panelTrigger.TogglePanel();
         ResetNumbers();
@@ -155,6 +156,7 @@ public class EnemyAI : MonoBehaviour
 
     public void DefendTurn() // enemy defending (happens first)
     {
+        animator.Play("AA_Def");
         GenerateEnemyValue();
         auraTrigger.TogglePanel();
         panelTrigger.TogglePanel();

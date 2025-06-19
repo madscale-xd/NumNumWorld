@@ -790,7 +790,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackValue: 0
   rampingValue: 0
-  animator: {fileID: 0}
+  animator: {fileID: 8787809455036620811}
   animationStateName: 
   maxHP: 3
   currentHP: 0
