@@ -98,7 +98,7 @@ public class PrefabSpawner : MonoBehaviour
     private void UpdateKillCountUI()
     {
         if (killCountText != null)
-            killCountText.text = $"Kills: {killCount}";
+            killCountText.text = $"{killCount}";
     }
 
     private int GetErrorForKillCount()
