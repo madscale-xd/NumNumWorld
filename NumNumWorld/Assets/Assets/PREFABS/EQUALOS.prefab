@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackValue: 0
+  rampingValue: 0
   maxHP: 3
   currentHP: 0
   enemyHPText: {fileID: 7452173181202615964}
@@ -200,6 +201,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   resultText: {fileID: 0}
+  maxMarginOfError: 5
+  appliedError: 0
+  enemyMarginText: {fileID: 0}
+  rampMult: 0
 --- !u!114 &4663943653361843119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,7 +234,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7348648136872371206
 Transform:
   m_ObjectHideFlags: 0

@@ -6,6 +6,8 @@ public class EnemyAI : MonoBehaviour
     public int attackValue;
 
     public int rampingValue = 0;
+    public Animator animator;
+    public string animationStateName; // assign in Inspector
 
     [Header("Enemy HP Settings")]
     public int maxHP = 3;
