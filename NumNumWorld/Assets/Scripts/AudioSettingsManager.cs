@@ -44,13 +44,13 @@ public class AudioSettingsManager : MonoBehaviour
 
     public void OpenSettings()
     {
-        AudioManager.Instance.PlayButton();
+        AudioManager.Instance.PlayButtonSFX();
         settingsPanel.SetActive(true);
     }
 
     public void CloseSettings()
     {
-         AudioManager.Instance.PlayButton();
+         AudioManager.Instance.PlayButtonSFX();
         settingsPanel.SetActive(false);
     }
 

@@ -27,6 +27,7 @@ public class AudioManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            sfxSource.ignoreListenerPause = true;
         }
         else
         {
@@ -51,7 +52,7 @@ public class AudioManager : MonoBehaviour
     {
         if (bgmSource.clip == clip) return;
         bgmSource.clip = clip;
-        bgmSource.loop = true; 
+        bgmSource.loop = true;
         bgmSource.Play();
     }
 
@@ -60,14 +61,29 @@ public class AudioManager : MonoBehaviour
         sfxSource.PlayOneShot(clip);
     }
 
-    // Example shortcut methods if you want
-    public void PlayMinusHealth() => PlaySFX(sfxMinusHealth);
-    public void PlayPlayerAttack() => PlaySFX(sfxPlayerAttack);
-    public void PlayEnemyMinusHealth() => PlaySFX(sfxEnemyMinusHealth);
-    public void PlayButton() => PlaySFX(sfxButton);
-    public void PlayEnemyDeath() => PlaySFX(sfxEnemyDeath);
+    // Separated SFX methods
+    public void PlayButtonSFX()
+    {
+        PlaySFX(sfxButton);
+    }
 
-    
+    public void PlayMinusHealthSFX()
+    {
+        PlaySFX(sfxMinusHealth);
+    }
+
+    public void PlayPlayerAttackSFX()
+    {
+        PlaySFX(sfxPlayerAttack);
+    }
+
+    public void PlayEnemyMinusHealthSFX()
+    {
+        PlaySFX(sfxEnemyMinusHealth);
+    }
+
+    public void PlayEnemyDeathSFX()
+    {
+        PlaySFX(sfxEnemyDeath);
+    }
 }
-
-

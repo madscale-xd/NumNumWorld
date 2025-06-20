@@ -87,13 +87,14 @@ public class EnemyAI : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        AudioManager.Instance.PlayPlayerAttackSFX(); // Enemy Take Damage
         currentHP -= damage; // Take 1 hit regardless of damage value
         currentHP = Mathf.Max(0, currentHP);
         UpdateHPDisplay();
 
-        if (currentHP == 0)
+        if (currentHP == 0) // Enemy Death
         {
-            AudioManager.Instance.PlayEnemyDeath();
+            AudioManager.Instance.PlayEnemyDeathSFX();
             DestroyEnemy();
         }
     }

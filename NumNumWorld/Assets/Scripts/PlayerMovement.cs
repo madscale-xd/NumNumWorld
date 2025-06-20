@@ -79,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void DamagePlayer()
     {
-        AudioManager.Instance.PlayMinusHealth();
+        AudioManager.Instance.PlayMinusHealthSFX();
         TakeDamage(1);
     }
 

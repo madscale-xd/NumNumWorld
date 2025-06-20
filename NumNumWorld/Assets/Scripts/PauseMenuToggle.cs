@@ -4,6 +4,7 @@ public class PauseMenuToggle : MonoBehaviour
 {
     [Header("Pause Menu Panel")]
     [SerializeField] private GameObject pausePanel;
+    private AudioManager audioManager;
 
     private bool isPaused = false;
 
@@ -18,23 +19,32 @@ public class PauseMenuToggle : MonoBehaviour
 
     public void TogglePause()
     {
+        // AudioManager.Instance.PlayButtonSFX();
         isPaused = !isPaused;
 
         if (isPaused)
         {
             pausePanel.SetActive(true);
-            Time.timeScale = 0f;  // Pause the game
+            StartCoroutine(SetPauseTimeScale(0f));
         }
         else
         {
             pausePanel.SetActive(false);
-            Time.timeScale = 1f;  // Resume the game
+            Time.timeScale = 1f;
         }
     }
+
+    private System.Collections.IEnumerator SetPauseTimeScale(float timeScale)
+    {
+        yield return null;  // wait one frame so audio starts playing
+        Time.timeScale = timeScale;
+    }
+
 
     // Optional: Explicit Pause/Unpause (e.g., for buttons)
     public void PauseGame()
     {
+        // AudioManager.Instance.PlayButtonSFX();
         isPaused = true;
         pausePanel.SetActive(true);
         Time.timeScale = 0f;
@@ -42,6 +52,7 @@ public class PauseMenuToggle : MonoBehaviour
 
     public void ResumeGame()
     {
+        // AudioManager.Instance.PlayButtonSFX();
         isPaused = false;
         pausePanel.SetActive(false);
         Time.timeScale = 1f;

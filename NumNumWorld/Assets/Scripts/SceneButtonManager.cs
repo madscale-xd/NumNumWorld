@@ -20,8 +20,6 @@ public class SceneButtonManager : MonoBehaviour
     void Start()
     {
         Cursor.visible = true;
-
-
     }
 
     void Update()
@@ -34,14 +32,14 @@ public class SceneButtonManager : MonoBehaviour
 
     public void QuitGame()
     {
-        AudioManager.Instance.PlayButton();
+        AudioManager.Instance.PlayButtonSFX();
         Application.Quit();
     }
 
     public void LoadGame()
     {
-        AudioManager.Instance.PlayButton();
-        SceneManager.LoadScene("NumNumMain"); // Load your gameplay scene
+        AudioManager.Instance.PlayButtonSFX();
+        SceneManager.LoadScene("NumNumMain"); 
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -54,7 +52,7 @@ public class SceneButtonManager : MonoBehaviour
 
     private IEnumerator LoadAfterDelay()
     {
-        yield return null;  // wait one frame for scene objects to initialize
+        yield return null;  
         SceneSaver sceneSaver = FindObjectOfType<SceneSaver>();
         if (sceneSaver != null)
         {
@@ -72,61 +70,56 @@ public class SceneButtonManager : MonoBehaviour
         SceneSaver sceneSaver = FindObjectOfType<SceneSaver>();
         if (sceneSaver != null)
         {
-            sceneSaver.SaveScene();  // Save current game state
+            sceneSaver.SaveScene(); 
         }
-        SceneManager.LoadScene("MainMenu");  // Return to main menu scene
+        SceneManager.LoadScene("MainMenu");  
     }
 
     public void NewGame()
     {
-        AudioManager.Instance.PlayButton();
+        AudioManager.Instance.PlayButtonSFX();
         SceneManager.LoadScene("NumNumMain");
     }
 
     public void LoadRetry()
     {
-        AudioManager.Instance.PlayButton();
+        AudioManager.Instance.PlayButtonSFX();
         SceneManager.LoadScene("NumNumMain");
     }
 
     public void LoadMenu()
     {
-        AudioManager.Instance.PlayButton();
+        AudioManager.Instance.PlayButtonSFX();
         var tempSaver = new GameObject("TempSaver").AddComponent<SceneSaver>();
         tempSaver.ClearSave();
         Destroy(tempSaver.gameObject);
-
-        // Keep listener active — it'll run, but won't load data (file is gone)
         SceneManager.LoadScene("MainMenu");
     }
 
     public void BackToMenu()
     {
-        AudioManager.Instance.PlayButton();
+        AudioManager.Instance.PlayButtonSFX();
         SceneManager.LoadScene("MainMenu");
     }
 
     public void LoadNewGame()
     {
-        AudioManager.Instance.PlayButton();
-        // Clear the existing save BEFORE reloading
+        AudioManager.Instance.PlayButtonSFX();
         var tempSaver = new GameObject("TempSaver").AddComponent<SceneSaver>();
         tempSaver.ClearSave();
         Destroy(tempSaver.gameObject);
 
-        // Keep listener active — it'll run, but won't load data (file is gone)
         SceneManager.LoadScene("NumNumMain");
     }
 
     public void TogglePauseMenu()
     {
+        AudioManager.Instance.PlayButtonSFX();
         if (pauseMenuCanvas != null)
         {
             bool isActive = pauseMenuCanvas.activeSelf;
             pauseMenuCanvas.SetActive(!isActive);
-
-            // Pause or resume time
-            Time.timeScale = isActive ? 1f : 0f; // Resume if it was active, pause if it's now active
+            Time.timeScale = isActive ? 1f : 0f; 
         }
     }
 }

@@ -31,7 +31,7 @@ public class ComputeManager : MonoBehaviour
 
     public void OnComputeButtonPressed()
     {
-        AudioManager.Instance.PlayButton();
+        AudioManager.Instance.PlayButtonSFX();
 
         // Get values
         int v1 = dropSlot1.lockedInValue;
