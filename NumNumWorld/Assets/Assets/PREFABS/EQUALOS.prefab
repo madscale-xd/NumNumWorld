@@ -150,6 +150,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackValue: 0
   rampingValue: 0
+  animator: {fileID: 0}
+  animationStateName: 
   maxHP: 3
   currentHP: 0
   enemyHPText: {fileID: 7452173181202615964}
@@ -234,7 +236,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7348648136872371206
 Transform:
   m_ObjectHideFlags: 0

@@ -99,6 +99,7 @@ public class PlayerMovement : MonoBehaviour
     public void HealPlayer(int amount)
     {
         playerHP = Mathf.Min(playerHP + amount, maxHP);
+        //PUT HEAL SFX HERE
         UpdateHPDisplay(); // Optional method to update health bar/text
     }
 

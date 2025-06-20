@@ -88,8 +88,8 @@ public class DEFENDComputeManager : MonoBehaviour
             {
                 resultText.text += "\nPerfect block!";
                 Debug.Log("Player successfully blocked the attack.");
+                //PUT PARRY SFX HERE
 
-                // Apply defense bonus based on enemy type
                 if (enemyTypeModifier != null && player != null)
                 {
                     int healBonus = enemyTypeModifier.defenseBonus;
