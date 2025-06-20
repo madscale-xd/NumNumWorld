@@ -18,6 +18,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Text Display")]
     public TextMeshPro playerHPText; // Assign this in the Inspector (not UGUI)
 
+    [Header("Health Display")]
+    public HeartDisplay heartDisplay;
+
     void Start()
     {
         UpdateHPDisplay();
@@ -85,6 +88,11 @@ public class PlayerMovement : MonoBehaviour
         if (playerHPText != null)
         {
             playerHPText.text = $"{playerHP}/{maxHP}";
+        }
+
+        if (heartDisplay != null)
+        {
+            heartDisplay.UpdateHearts(playerHP, maxHP);
         }
     }
 

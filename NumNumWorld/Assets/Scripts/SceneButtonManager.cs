@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class SceneButtonManager : MonoBehaviour
 {
     private AudioManager audioManager;
+    public GameObject pauseMenuCanvas;
 
     void OnEnable()
     {
@@ -19,15 +20,15 @@ public class SceneButtonManager : MonoBehaviour
     void Start()
     {
         Cursor.visible = true;
-        
-        
+
+
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            BackToMenu();
+            Debug.Log("hahaha");
         }
     }
 
@@ -90,7 +91,7 @@ public class SceneButtonManager : MonoBehaviour
 
     public void LoadMenu()
     {
-         AudioManager.Instance.PlayButton();
+        AudioManager.Instance.PlayButton();
         var tempSaver = new GameObject("TempSaver").AddComponent<SceneSaver>();
         tempSaver.ClearSave();
         Destroy(tempSaver.gameObject);
@@ -107,7 +108,7 @@ public class SceneButtonManager : MonoBehaviour
 
     public void LoadNewGame()
     {
-         AudioManager.Instance.PlayButton();
+        AudioManager.Instance.PlayButton();
         // Clear the existing save BEFORE reloading
         var tempSaver = new GameObject("TempSaver").AddComponent<SceneSaver>();
         tempSaver.ClearSave();
@@ -115,5 +116,17 @@ public class SceneButtonManager : MonoBehaviour
 
         // Keep listener active — it'll run, but won't load data (file is gone)
         SceneManager.LoadScene("NumNumMain");
+    }
+
+    public void TogglePauseMenu()
+    {
+        if (pauseMenuCanvas != null)
+        {
+            bool isActive = pauseMenuCanvas.activeSelf;
+            pauseMenuCanvas.SetActive(!isActive);
+
+            // Pause or resume time
+            Time.timeScale = isActive ? 1f : 0f; // Resume if it was active, pause if it's now active
+        }
     }
 }

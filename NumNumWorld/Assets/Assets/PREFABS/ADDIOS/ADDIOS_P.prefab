@@ -581,7 +581,7 @@ MonoBehaviour:
   enemyType: 0
   appendedOperator: +
   appendedNumber: 1
-  appendDisplayText: {fileID: 0}
+  appendDisplayText: {fileID: 3275420699686335295}
 --- !u!114 &6039833494785355536
 MonoBehaviour:
   m_ObjectHideFlags: 0
