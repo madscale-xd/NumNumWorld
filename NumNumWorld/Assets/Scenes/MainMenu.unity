@@ -1465,6 +1465,9 @@ MonoBehaviour:
   sfxPlayerAttack: {fileID: 8300000, guid: 494319e2ac5f2a847ae6e8d14bacda14, type: 3}
   sfxEnemyMinusHealth: {fileID: 8300000, guid: cef62c79f291ae04193a05d01c8b9fe1, type: 3}
   sfxEnemyDeath: {fileID: 8300000, guid: b409c95920a1eb44cb84300df1e74b82, type: 3}
+  sfxPlayerDeath: {fileID: 8300000, guid: bf21de9cebd19e24dae92c83b9dd8b2d, type: 3}
+  sfxParry: {fileID: 8300000, guid: e60a2c2a2632f8143a9ffed96671308e, type: 3}
+  sfxPlayerHeal: {fileID: 8300000, guid: 2c94ae63431f643418cb2b6a85a25566, type: 3}
 --- !u!1 &1137325256
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,6 +21,9 @@ public class AudioManager : MonoBehaviour
     public AudioClip sfxPlayerAttack;
     public AudioClip sfxEnemyMinusHealth;
     public AudioClip sfxEnemyDeath;
+    public AudioClip sfxPlayerDeath;
+    public AudioClip sfxParry;
+    public AudioClip sfxPlayerHeal;
 
     void Awake()
     {
@@ -85,5 +89,36 @@ public class AudioManager : MonoBehaviour
     public void PlayEnemyDeathSFX()
     {
         PlaySFX(sfxEnemyDeath);
+    }
+
+    public void PlayPlayerDeathSFX()
+    {
+        PlaySFX(sfxPlayerDeath);
+    } 
+    
+    private IEnumerator HandlePlayerDeathAndSceneLoad()
+    {
+        // Stop BGM
+        AudioManager.Instance.bgmSource.Stop();
+
+        // Play death SFX
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.sfxPlayerDeath);
+
+        // Wait for SFX duration
+        yield return new WaitForSeconds(AudioManager.Instance.sfxPlayerDeath.length);
+
+        // Now load EndScene
+        SceneManager.LoadScene("EndScene");
+    }
+
+
+    public void PlayParrySFX()
+    {
+        PlaySFX(sfxParry);
+    }
+
+    public void PlayPlayerHealSFX()
+    {
+        PlaySFX(sfxPlayerHeal);
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement; // Import this for scene loading
 using TMPro;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Health Display")]
     public HeartDisplay heartDisplay;
+
+    private AudioManager audioManager;
 
     void Start()
     {
@@ -57,6 +60,22 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private IEnumerator HandlePlayerDeathAndSceneLoad()
+    {
+        // Stop BGM
+        AudioManager.Instance.bgmSource.Stop();
+
+        // Play death SFX
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.sfxPlayerDeath);
+
+        // Wait for SFX duration
+        yield return new WaitForSeconds(AudioManager.Instance.sfxPlayerDeath.length);
+
+        // Now load EndScene
+        SceneManager.LoadScene("EndScene");
+    }
+
+
     public void TakeDamage(int amount)
     {
         playerHP -= amount;
@@ -73,7 +92,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 sceneSaver.SaveScene();
             }
-            SceneManager.LoadScene("EndScene");
+            StartCoroutine(HandlePlayerDeathAndSceneLoad());
+            // SceneManager.LoadScene("EndScene");
         }
     }
 
@@ -99,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
     public void HealPlayer(int amount)
     {
         playerHP = Mathf.Min(playerHP + amount, maxHP);
-        //PUT HEAL SFX HERE
+        AudioManager.Instance.PlayPlayerHealSFX();
         UpdateHPDisplay(); // Optional method to update health bar/text
     }
 
