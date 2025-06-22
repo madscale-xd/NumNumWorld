@@ -24,6 +24,9 @@ public class PlayerMovement : MonoBehaviour
 
     private AudioManager audioManager;
 
+    public Animator animator;   //new
+    public string animationStateName;   //new
+
     void Start()
     {
         UpdateHPDisplay();
@@ -31,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        //animator.Play("Player_Walk");
         if (!isStopped)
         {
             // Move right (+x direction)
