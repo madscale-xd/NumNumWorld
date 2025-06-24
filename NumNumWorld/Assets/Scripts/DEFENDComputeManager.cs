@@ -88,6 +88,7 @@ public class DEFENDComputeManager : MonoBehaviour
             {
                 resultText.text += "\nPerfect block!";
                 Debug.Log("Player successfully blocked the attack.");
+                FindObjectOfType<PlayerAnimatorHandler>().PlayParry();
                 AudioManager.Instance.PlayParrySFX();
 
                 if (enemyTypeModifier != null && player != null)

@@ -88,6 +88,7 @@ public class EnemyAI : MonoBehaviour
     public void TakeDamage(int damage)
     {
         AudioManager.Instance.PlayPlayerAttackSFX(); // Enemy Take Damage
+        FindObjectOfType<PlayerAnimatorHandler>().PlayPunch();
         currentHP -= damage; // Take 1 hit regardless of damage value
         currentHP = Mathf.Max(0, currentHP);
         UpdateHPDisplay();
@@ -142,7 +143,7 @@ public class EnemyAI : MonoBehaviour
 
     public void AttackTurn() // enemy attacking
     {
-        //playerMovement.animator.Play("Player_Def"); //new
+        FindObjectOfType<PlayerAnimatorHandler>().PlayDefense();
         animator.Play("AA_Atk");
         auraTrigger.TogglePanel();
         panelTrigger.TogglePanel();
@@ -159,7 +160,7 @@ public class EnemyAI : MonoBehaviour
 
     public void DefendTurn() // enemy defending (happens first)
     {
-        //playerMovement.animator.Play("Player_Atk"); //new
+        FindObjectOfType<PlayerAnimatorHandler>().PlayAttack();
         animator.Play("AA_Def");
         GenerateEnemyValue();
         auraTrigger.TogglePanel();

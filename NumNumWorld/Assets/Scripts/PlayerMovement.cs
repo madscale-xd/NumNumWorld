@@ -24,9 +24,6 @@ public class PlayerMovement : MonoBehaviour
 
     private AudioManager audioManager;
 
-    public Animator animator;   //new
-    public string animationStateName;   //new
-
     void Start()
     {
         UpdateHPDisplay();
@@ -34,10 +31,10 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        //animator.Play("Player_Walk");
         if (!isStopped)
         {
             // Move right (+x direction)
+            FindObjectOfType<PlayerAnimatorHandler>().PlayIdle();
             transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
         }
     }
@@ -47,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("Aura"))
         {
             isStopped = true;
+            FindObjectOfType<PlayerAnimatorHandler>().PlayAttack();
         }
 
         EnemyAI enemy = other.GetComponent<EnemyAI>();
@@ -85,11 +83,13 @@ public class PlayerMovement : MonoBehaviour
         playerHP -= amount;
         playerHP = Mathf.Max(playerHP, 0); // Clamp to 0
         UpdateHPDisplay();
+        FindObjectOfType<PlayerAnimatorHandler>().PlayHurt();
 
         Debug.Log($"Player takes {amount} damage! Current HP: {playerHP}");
 
         if (playerHP <= 0)
         {
+            FindObjectOfType<PlayerAnimatorHandler>().PlayDeath();
             Debug.Log("Player HP reached 0. Loading EndScene...");
             SceneSaver sceneSaver = FindObjectOfType<SceneSaver>();
             if (sceneSaver != null)
