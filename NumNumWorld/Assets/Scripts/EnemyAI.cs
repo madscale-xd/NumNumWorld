@@ -40,12 +40,8 @@ public class EnemyAI : MonoBehaviour
 
     [Header("Margin of Error Display")]
     public TextMeshPro enemyMarginText;
-
     public int rampMult;
-
-
     private int enemyValue;
-
     void Start()
     {
         GenerateEnemyValue();

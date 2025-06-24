@@ -650,6 +650,7 @@ GameObject:
   - component: {fileID: 1327663923944516441}
   - component: {fileID: 3336106940071901580}
   - component: {fileID: 6039833494785355536}
+  - component: {fileID: 7455601036866800709}
   m_Layer: 0
   m_Name: MENOS_RTRUE
   m_TagString: Aura
@@ -892,6 +893,22 @@ MonoBehaviour:
   enemyType: 0
   attackBonus: 0
   defenseBonus: 0
+--- !u!114 &7455601036866800709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4350867351211249020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e5bc075dcf415419c212291158c567, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetRenderer: {fileID: 7066228602897264483}
+  prescriptivaSprite: {fileID: 21300000, guid: 9cd1c264ef67bd44b8f39cffa0e5476b, type: 3}
+  restrictivaSprite: {fileID: 21300000, guid: 26ca6a55fb36ea34eb38d0b46e9d772e, type: 3}
+  completativaSprite: {fileID: 21300000, guid: 02e9ecd09cd824640832b25875dfce3c, type: 3}
 --- !u!1 &5098666607060855725
 GameObject:
   m_ObjectHideFlags: 0

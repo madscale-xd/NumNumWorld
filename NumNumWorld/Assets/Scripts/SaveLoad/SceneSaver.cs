@@ -10,6 +10,7 @@ public class SceneSaver : MonoBehaviour
     private string SavePath => Path.Combine(Application.persistentDataPath, saveFileName);
 
     public PrefabSpawner spawner;
+    public EnemyData loadedEnemyData;
 
     void Awake()
     {
@@ -31,13 +32,22 @@ public class SceneSaver : MonoBehaviour
         EnemyAI currentEnemy = FindObjectOfType<EnemyAI>();
         if (currentEnemy != null)
         {
-            data.currentEnemy = new EnemyData
+            EnemyTypeModifier typeMod = currentEnemy.GetComponent<EnemyTypeModifier>();
+            EnemyAppendModifier appendMod = currentEnemy.GetComponent<EnemyAppendModifier>();
+
+            EnemyData enemyData = new EnemyData
             {
+                position = currentEnemy.transform.position,
                 currentHP = currentEnemy.currentHP,
                 maxHP = currentEnemy.maxHP,
-                position = currentEnemy.transform.position
+                typeModifier = typeMod != null ? typeMod.enemyType.ToString() : "Prescriptiva",
+                appendModifier = appendMod != null ? appendMod.enemyType.ToString() : "Addios",
+                appendedNumber = appendMod != null ? appendMod.GetAppendedNumber() : 1
             };
+
+            data.currentEnemy = enemyData;
         }
+
         if (spawner != null)
         {
             data.killCount = spawner.killCount;
@@ -58,6 +68,11 @@ public class SceneSaver : MonoBehaviour
         string json = File.ReadAllText(SavePath);
         SceneSaveData data = JsonUtility.FromJson<SceneSaveData>(json);
 
+        if (data.currentEnemy != null)
+        {
+            loadedEnemyData = data.currentEnemy; // ✅ Just store it for later
+        }
+
         Debug.Log($"[SceneSaver] Loaded player position: {data.playerPosition}");
         Debug.Log($"[SceneSaver] Loaded player stats: {data.playerStats}");
 
@@ -70,19 +85,46 @@ public class SceneSaver : MonoBehaviour
         player.transform.position = data.playerPosition;
         player.LoadPlayerData(data.playerStats);
 
-        EnemyAI currentEnemy = FindObjectOfType<EnemyAI>();
-        if (currentEnemy != null && data.currentEnemy != null)
+        if (data.currentEnemy != null)
         {
-            currentEnemy.transform.position = data.currentEnemy.position;
-            currentEnemy.currentHP = data.currentEnemy.currentHP;
-            currentEnemy.maxHP = data.currentEnemy.maxHP;
-            currentEnemy.UpdateHPDisplay();
+            EnemyAI currentEnemy = FindObjectOfType<EnemyAI>();
+            if (currentEnemy != null)
+            {
+                currentEnemy.transform.position = data.currentEnemy.position;
+                currentEnemy.maxHP = data.currentEnemy.maxHP;
+                currentEnemy.currentHP = data.currentEnemy.currentHP;
+                currentEnemy.UpdateHPDisplay();
+
+                // Apply EnemyTypeModifier
+                EnemyTypeModifier typeMod = currentEnemy.GetComponent<EnemyTypeModifier>();
+                if (typeMod != null && System.Enum.TryParse(data.currentEnemy.typeModifier, out EnemyTypeModifier.EnemyType savedType))
+                {
+                    typeMod.enemyType = savedType;
+                }
+
+                // Apply EnemyAppendModifier
+                EnemyAppendModifier appendMod = currentEnemy.GetComponent<EnemyAppendModifier>();
+                if (appendMod != null && System.Enum.TryParse(data.currentEnemy.appendModifier, out EnemyAppendModifier.EnemyType savedAppendType))
+                {
+                    appendMod.enemyType = savedAppendType;
+                    appendMod.appendedNumber = data.currentEnemy.appendedNumber;
+                    appendMod.appendDisplayText.text = $"{appendMod.GetAppendedOperator()}{appendMod.appendedNumber}";
+                }
+
+                Debug.Log("[SceneSaver] Enemy stats and modifiers loaded.");
+            }
+            else
+            {
+                Debug.LogWarning("[SceneSaver] No in-scene enemy found to apply loaded data to.");
+            }
+            GetComponent<EnemyTypeVisualSwitcher>()?.ApplyVisualByType();
         }
 
         if (spawner != null)
         {
             spawner.killCount = data.killCount;
             Debug.Log($"[SceneSaver] Loaded kill count: {data.killCount}");
+            spawner.UpdateKillCountUI();
         }
 
         Debug.Log("[SceneSaver] Scene data loaded.");
@@ -99,12 +141,14 @@ public class SceneSaver : MonoBehaviour
 
     private IEnumerator LoadAfterDelay()
     {
+        yield return new WaitForSeconds(0.1f);
         yield return null;  // Let the scene initialize
         SceneSaver sceneSaver = FindObjectOfType<SceneSaver>();
         if (sceneSaver != null)
         {
             Debug.Log("[SceneButtonManager] Calling LoadScene on SceneSaver");
             sceneSaver.LoadScene();
+            GetComponent<EnemyTypeVisualSwitcher>()?.ApplyVisualByType();
         }
         else
         {
