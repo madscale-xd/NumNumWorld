@@ -10,12 +10,14 @@ public class RandomDigitDrawer : MonoBehaviour
     public Sprite[] digitSprites; // Should be length 9: index 0 = 1, index 8 = 9
 
     private int digitValue;
-    private Vector3 originalPosition; // Variable to store the original position
+
+    private Vector3 originalLocalPosition;     // Track original local position
+    private Transform originalParent;          // Track original parent transform
 
     void Start()
     {
-        // Track the original position relative to the parent (local position)
-        originalPosition = transform.localPosition;
+        originalLocalPosition = transform.localPosition;
+        originalParent = transform.parent;
 
         DrawRandomDigit();
     }
@@ -32,9 +34,23 @@ public class RandomDigitDrawer : MonoBehaviour
         return digitValue;
     }
 
-    // You can use this method to get the original position (in local space relative to the parent)
     public Vector3 GetOriginalPosition()
     {
-        return originalPosition;
+        return originalLocalPosition;
+    }
+
+    public void ResetToOriginalPosition()
+    {
+        transform.SetParent(originalParent);
+        transform.localPosition = originalLocalPosition;
+
+        gameObject.SetActive(true); // Ensure it's visible
+        CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
+        if (canvasGroup != null)
+        {
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+            canvasGroup.alpha = 1;
+        }
     }
 }

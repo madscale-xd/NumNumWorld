@@ -1629,17 +1629,15 @@ MonoBehaviour:
   killCount: -1
   killCountText: {fileID: 1367525430}
   threshold1: 0
-  threshold2: 5
-  threshold3: 10
-  threshold4: 15
-  threshold5: 25
-  threshold6: 35
-  threshold7: 45
-  threshold8: 60
-  threshold9: 80
-  threshold10: 100
-  maxErrorByStage: 0a00000007000000050000000300000001000000
-  maxHPByStage: 030000000500000007000000090000000c000000
+  threshold2: 3
+  threshold3: 6
+  threshold4: 10
+  threshold5: 15
+  threshold6: 25
+  threshold7: 35
+  threshold8: 45
+  threshold9: 60
+  threshold10: 75
 --- !u!1 &331331491
 GameObject:
   m_ObjectHideFlags: 0
@@ -2741,6 +2739,13 @@ MonoBehaviour:
   saveFileName: scene_save.json
   player: {fileID: 1137449212}
   spawner: {fileID: 311386373}
+  loadedEnemyData:
+    position: {x: 0, y: 0, z: 0}
+    currentHP: 0
+    maxHP: 0
+    typeModifier: 
+    appendModifier: 
+    appendedNumber: 0
 --- !u!1 &542013188
 GameObject:
   m_ObjectHideFlags: 0

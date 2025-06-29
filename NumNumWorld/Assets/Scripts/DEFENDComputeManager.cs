@@ -42,6 +42,15 @@ public class DEFENDComputeManager : MonoBehaviour
         string o3 = operator3.GetCurrentOperator();
         string o4 = operator4.GetCurrentOperator();
 
+        RandomDigitDrawer[] allDigits = FindObjectsOfType<RandomDigitDrawer>();
+        foreach (var digit in allDigits)
+        {
+            if (digit.gameObject.activeSelf) // Only reset if it's visible and not already locked away
+            {
+                digit.ResetToOriginalPosition();
+            }
+        }
+
         // Set operation-based bonuses based on actual operators used
         string[] usedOperators = new string[] { o1, o2, o3, o4 };
         if (enemyTypeModifier != null)

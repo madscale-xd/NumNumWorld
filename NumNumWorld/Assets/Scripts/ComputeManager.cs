@@ -46,6 +46,15 @@ public class ComputeManager : MonoBehaviour
         string o3 = operator3.GetCurrentOperator();
         string o4 = operator4.GetCurrentOperator();
 
+        RandomDigitDrawer[] allDigits = FindObjectsOfType<RandomDigitDrawer>();
+        foreach (var digit in allDigits)
+        {
+            if (digit.gameObject.activeSelf)
+            {
+                digit.ResetToOriginalPosition();
+            }
+        }
+
         // Set operation-based bonuses based on actual operators used
         string[] usedOperators = new string[] { o1, o2, o3, o4 };
         if (enemyTypeModifier != null)
@@ -69,7 +78,6 @@ public class ComputeManager : MonoBehaviour
             // Apply the appended operation to the result
             result = ApplyOperator(result, appendedOperator, appendedNumber);
         }
-
         // Now apply the appended operation
         if (currentEnemy != null && currentEnemy.currentHP != 0)
         {

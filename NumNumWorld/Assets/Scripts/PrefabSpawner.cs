@@ -32,8 +32,8 @@ public class PrefabSpawner : MonoBehaviour
     public int threshold10 = 100;
 
     [Header("Dynamic Difficulty Settings")]
-    [SerializeField] private List<int> maxErrorByStage = new List<int> {15, 13, 10, 7, 4, 2, 1};
-    [SerializeField] private List<int> maxHPByStage = new List<int> { 3, 5, 7, 9, 12, 16, 20, 25, 35, 50 };
+    private List<int> maxErrorByStage = new List<int> {15, 13, 10, 7, 4, 2, 1};
+    private List<int> maxHPByStage = new List<int> {1, 2, 3, 5, 7, 9, 12, 16, 20, 25 };
 
     void Start()
     {
