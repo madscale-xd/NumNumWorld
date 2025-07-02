@@ -106,9 +106,7 @@ public class SceneSaver : MonoBehaviour
                 EnemyAppendModifier appendMod = currentEnemy.GetComponent<EnemyAppendModifier>();
                 if (appendMod != null && System.Enum.TryParse(data.currentEnemy.appendModifier, out EnemyAppendModifier.EnemyType savedAppendType))
                 {
-                    appendMod.enemyType = savedAppendType;
-                    appendMod.appendedNumber = data.currentEnemy.appendedNumber;
-                    appendMod.appendDisplayText.text = $"{appendMod.GetAppendedOperator()}{appendMod.appendedNumber}";
+                    appendMod.LoadFromSave(savedAppendType, data.currentEnemy.appendedNumber);
                 }
 
                 Debug.Log("[SceneSaver] Enemy stats and modifiers loaded.");
@@ -141,7 +139,7 @@ public class SceneSaver : MonoBehaviour
 
     private IEnumerator LoadAfterDelay()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
         yield return null;  // Let the scene initialize
         SceneSaver sceneSaver = FindObjectOfType<SceneSaver>();
         if (sceneSaver != null)

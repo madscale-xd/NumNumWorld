@@ -15,14 +15,35 @@ public class EnemyAppendModifier : MonoBehaviour
 
     void Start()
     {
-        // Call to update the operator and number in the UI display
-        GetAppendedOperation(); // This will set the appended operator and update the UI text
+        // Only apply append logic if we haven't loaded from a save
+        if (!wasLoadedFromSave)
+        {
+            GenerateRandomAppend(); // generate and apply random operator + number
+        }
+        else
+        {
+            ApplyAppendModifier(); // just re-apply display logic
+        }
     }
 
-    // You can modify this logic to apply different behaviors depending on the enemy type
-    public string GetAppendedOperation()
+    private bool wasLoadedFromSave = false;
+
+    /// <summary>
+    /// Used by SceneSaver to apply loaded values.
+    /// </summary>
+    public void LoadFromSave(EnemyType loadedType, int loadedNumber)
     {
-        // Customize how operations are appended based on the enemy type
+        enemyType = loadedType;
+        appendedNumber = loadedNumber;
+        wasLoadedFromSave = true;
+        ApplyAppendModifier();
+    }
+
+    /// <summary>
+    /// Randomly generates append operator and number based on enemy type.
+    /// </summary>
+    private void GenerateRandomAppend()
+    {
         switch (enemyType)
         {
             case EnemyType.Addios:
@@ -47,36 +68,35 @@ public class EnemyAppendModifier : MonoBehaviour
                 break;
         }
 
-        // Update the UI to show the operator and number
+        ApplyAppendModifier(); // make sure the display updates
+    }
+
+    /// <summary>
+    /// Updates the append display based on current operator and number.
+    /// </summary>
+    public void ApplyAppendModifier()
+    {
+        appendedOperator = GetCurrentEnemyOperation();
+
         if (appendDisplayText != null)
         {
             appendDisplayText.text = $"{appendedOperator}{appendedNumber}";
         }
-
-        return $"{appendedOperator}{appendedNumber}";
     }
 
-    public string GetAppendedOperator()
-    {
-        return appendedOperator;
-    }
+    public string GetAppendedOperator() => appendedOperator;
+    public int GetAppendedNumber() => appendedNumber;
 
-    public int GetAppendedNumber()
-    {
-        return appendedNumber;
-    }
-
-    // ✨ NEW METHOD: Get operation symbol used by enemy type
     public string GetCurrentEnemyOperation()
     {
-        switch (enemyType)
+        return enemyType switch
         {
-            case EnemyType.Addios: return "+";
-            case EnemyType.Menos: return "-";
-            case EnemyType.Exos: return "×";
-            case EnemyType.Dividos: return "÷";
-            case EnemyType.Equalos: return "+"; // Equalos uses "+" for healing logic
-            default: return "+";
-        }
+            EnemyType.Addios => "+",
+            EnemyType.Menos => "-",
+            EnemyType.Exos => "×",
+            EnemyType.Dividos => "÷",
+            EnemyType.Equalos => "+", // Equalos uses "+" for healing logic
+            _ => "+"
+        };
     }
 }

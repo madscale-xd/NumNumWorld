@@ -613,6 +613,7 @@ GameObject:
   - component: {fileID: 3336106940071901580}
   - component: {fileID: 6039833494785355536}
   - component: {fileID: 7827036172109679513}
+  - component: {fileID: 1030983506407955550}
   m_Layer: 0
   m_Name: ADDIOS_C
   m_TagString: Aura
@@ -866,6 +867,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4350867351211249020}
   m_CullTransparentMesh: 1
+--- !u!114 &1030983506407955550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4350867351211249020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3934dfebee1da494ca32edee3ed5c291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetAnimator: {fileID: 7754973038678797145}
+  addiosController: {fileID: 9100000, guid: de4e0221ba4bf044a967e66c221de7d2, type: 2}
+  menosController: {fileID: 9100000, guid: 3d1db71661e0da345b8bc9d5272e3019, type: 2}
+  exosController: {fileID: 9100000, guid: 98d14bc48fa01fc45842690e699b02ab, type: 2}
+  dividosController: {fileID: 9100000, guid: c97e4c6ae1e2b184688f6043fe5c87d4, type: 2}
+  equalosController: {fileID: 0}
 --- !u!1 &5098666607060855725
 GameObject:
   m_ObjectHideFlags: 0
