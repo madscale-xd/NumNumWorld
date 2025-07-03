@@ -7,7 +7,7 @@ public class EnemyAppendModifier : MonoBehaviour
     public EnemyType enemyType;
 
     [Header("Append Operators")]
-    public string appendedOperator = "+"; // The operator to append (could be "+", "-", "*", "/")
+    public string appendedOperator = "0"; // The operator to append (could be "+", "-", "*", "/")
     public int appendedNumber = 1; // Number to append to the operation
 
     [Header("UI Display")]

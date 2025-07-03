@@ -99,7 +99,7 @@ public class SceneSaver : MonoBehaviour
                 EnemyTypeModifier typeMod = currentEnemy.GetComponent<EnemyTypeModifier>();
                 if (typeMod != null && System.Enum.TryParse(data.currentEnemy.typeModifier, out EnemyTypeModifier.EnemyType savedType))
                 {
-                    typeMod.enemyType = savedType;
+                    typeMod.LoadFromSave(savedType);
                 }
 
                 // Apply EnemyAppendModifier
@@ -116,6 +116,7 @@ public class SceneSaver : MonoBehaviour
                 Debug.LogWarning("[SceneSaver] No in-scene enemy found to apply loaded data to.");
             }
             GetComponent<EnemyTypeVisualSwitcher>()?.ApplyVisualByType();
+            GetComponent<EnemyAppendVisualSwitcher>()?.ApplyVisualByAppendType();
         }
 
         if (spawner != null)
@@ -147,6 +148,7 @@ public class SceneSaver : MonoBehaviour
             Debug.Log("[SceneButtonManager] Calling LoadScene on SceneSaver");
             sceneSaver.LoadScene();
             GetComponent<EnemyTypeVisualSwitcher>()?.ApplyVisualByType();
+            GetComponent<EnemyAppendVisualSwitcher>()?.ApplyVisualByAppendType();
         }
         else
         {

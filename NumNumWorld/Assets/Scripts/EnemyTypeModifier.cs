@@ -11,12 +11,24 @@ public class EnemyTypeModifier : MonoBehaviour
     [Header("Bonuses")]
     public int attackBonus = 0;
     public int defenseBonus = 0;
+    private EnemyAppendModifier appendModifier;
 
     void Start()
     {
         // Dummy/default initialization with placeholders
         SetOperationBonus(new string[] { "+", "-", "*", "/" });
+        appendModifier = GetComponent<EnemyAppendModifier>();
     }
+    private bool wasLoadedFromSave = false;
+
+    /// <summary>
+    /// Used by SceneSaver to apply loaded values.
+    /// </summary>
+    public void LoadFromSave(EnemyType loadedType)
+    {
+        enemyType = loadedType;
+    }
+
 
     // ✅ Call this with the 4 operators used in the equation
     public void SetOperationBonus(string[] usedOperators)
@@ -58,26 +70,20 @@ public class EnemyTypeModifier : MonoBehaviour
     private int CountMatchingOperations(string[] usedOperators)
     {
         int count = 0;
+        string enemyOp = GetEnemyOperation();
         foreach (string op in usedOperators)
         {
-            if (GetEnemyOperation() == op)
+            if (op == enemyOp)
                 count++;
         }
         return count;
     }
 
-    // Dummy method for now — customize this if each enemy has a preferred op
     public string GetEnemyOperation()
     {
-        switch (enemyType)
-        {
-            case EnemyType.Prescriptiva: return "+";
-            case EnemyType.Restrictiva: return "*";
-            default: return "";
-        }
+        return appendModifier != null ? appendModifier.GetAppendedOperator() : "+";
     }
 
-    // Optional string return if you still want this
     public string GetOperationBonusText()
     {
         return $"{attackBonus} Bonus Damage / Heal +{defenseBonus} HP";
